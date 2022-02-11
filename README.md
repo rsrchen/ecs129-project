@@ -10,6 +10,7 @@ Not sure how to do this. But we're giving it a shot anyway
 ## More details:
 - We'll be using Python, because that's what we all agreed to. Plus Python has a ton of libraries developed by a bunch of smart people (we'll probably be using scipy for eigenvalues and eigenvectors)
 - Prof gave us both of the PDB structure files. Fortunate, because I'm kind of confused about how to find them on the PDB. Glad he gave them to us
+- [Click here if you're wondering how to read a PDB file](https://www.cgl.ucsf.edu/chimera/docs/UsersGuide/tutorials/pdbintro.html)
 
 ## How:
 1. I don't know. What is a quaternion?????????????
@@ -37,3 +38,4 @@ to put it simply:
 now we can obtain the best-fit RMSD. plug our values into the equation, number 3 under the algorithm section given on page 1855. 
 
 I think that's that. 
+
