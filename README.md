@@ -19,12 +19,12 @@ Not sure how to do this. But we're giving it a shot anyway
 I'm doing this as best I can, because I kind of don't have any clue what I'm talking about. I hope I'm right.
 
 ### Step 1
-xk and yk are sets of vectors. xk is the target set and yk is the model set. this means that xk is the attempt (alphafold's prediction) and yk is the truth/ideal/model upon which we judge our target (pdb true structure).
-y with a bar over it, which i will call y bar, is given by 1/N * (the sum from y1 to yN of everything in the set yk).
-x with a bar over it, which i will call x bar, is given by something similar, just replace all the y's with x's. 
-x bar and y bar are the barycenters of x and y. what that means, i don't know. let's just move on. 
-we have to multiply xk and yk by the weights wk. each member of xk will have a weight, just multiply through xk by the weight that corresponds to each member of the set, i think. same with yk.
-multiply xk and yk by weights, then shift the coordinates to the barycenters (go through the set xk and subtract xbar from x1, subtract xbar from x2, ... subtract xbar from xN, now do that for yk) now we have xk squiggle and yk squiggle, sets of vectors that have been modified (standardized, maybe?) by the operations we just performed. 
+1. xk and yk are sets of vectors. xk is the target set and yk is the model set. this means that xk is the attempt (alphafold's prediction) and yk is the truth/ideal/model upon which we judge our target (pdb true structure).
+2. y with a bar over it, which i will call y bar, is given by 1/N * (the sum from y1 to yN of everything in the set yk).
+3. x with a bar over it, which i will call x bar, is given by something similar, just replace all the y's with x's. 
+4. x bar and y bar are the barycenters of x and y. what that means, i don't know. let's just move on. 
+5. we have to multiply xk and yk by the weights wk. each member of xk will have a weight, just multiply through xk by the weight that corresponds to each member of the set, i think. same with yk.
+6. multiply xk and yk by weights, then shift the coordinates to the barycenters (go through the set xk and subtract xbar from x1, subtract xbar from x2, ... subtract xbar from xN, now do that for yk) now we have xk squiggle and yk squiggle, sets of vectors that have been modified (standardized, maybe?) by the operations we just performed. 
 
 ### Step 2
 now we use scipy to figure out the maximum eigenvalue (lambda max) and the corresponding eigenvector (cursive Q? max) of the 4x4 matrix (cursive F) given by equation 10 in the paper. equation 10 is on page 1852. i'm not writing it out here because it'd be a pain to copy over. 
