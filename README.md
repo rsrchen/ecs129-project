@@ -1,5 +1,5 @@
 # ECS 129 Midterm Project Outline
-I honestly don't know what the hell is going on. But we're going to give it a shot anyway
+Not sure how to do this. But we're giving it a shot anyway
 
 
 ## What to do: 
