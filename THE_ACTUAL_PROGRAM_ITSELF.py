@@ -94,14 +94,12 @@ def main():
             "z": zlist,
         }
 
-    pass
-
     # the plan: entry_1 and entry_2 are both dictionaries that look like
     # { "x": [1,2,3], "y": [1,2,3], "z": [1,2,3] }
     # need to shift entry_1 and entry_2 to their barycenters
     # then need to calculate the eigen shit of entry_1 and entry_2
     # i could be more efficient if i didn't repeat calculations. but fuck that
-    #
+    # i did the rest without thinking or explaining with comments oops
 
     for entry_1 in all_seq1_structures.values():
         for entry_2 in all_seq1_structures.values():
@@ -116,11 +114,18 @@ def main():
             max_eigenvalue = eigenvalues_of_vector_F.find(shifted1, shifted2)
             rmsd = calc_rmsd.calc(shifted1, shifted2, max_eigenvalue)
 
-    # for entry_1 in all_seq2_structures.values():
-    #     for entry_2 in all_seq2_structures.values():
-    #         shift_to_barycenters.shift(entry_1)
-    #         eigenvalues_of_vector_F.find()
-    #         calc_rmsd.calc()
+    for entry_1 in all_seq2_structures.values():
+        for entry_2 in all_seq2_structures.values():
+            shifted1, shifted2 = shift_to_barycenters.shift(
+                entry_1["x"],
+                entry_1["y"],
+                entry_1["z"],
+                entry_2["x"],
+                entry_2["y"],
+                entry_2["z"],
+            )
+            max_eigenvalue = eigenvalues_of_vector_F.find(shifted1, shifted2)
+            rmsd = calc_rmsd.calc(shifted1, shifted2, max_eigenvalue)
 
 
 main()
