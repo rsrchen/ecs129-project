@@ -11,20 +11,22 @@
 import numpy as np
 from numpy import linalg as lg
 
-def find(x_tilde: list[list[float, float, float]], y_tilde: list[list[float, float, float]]):
+
+def find(
+    x_tilde: list[list[float, float, float]], y_tilde: list[list[float, float, float]]
+):
     # create the R matrix based on x-tilde and y-tilde
     matrix_r = np.zeros((3, 3))  # empty 3x3 matrix
     for i in range(0, 3):
         for j in range(0, 3):
-          sum_for_r_i_j = 0
-          for n in range(len(x_tilde)): 
-            sum_for_r_i_j += (x_tilde[n][i] * y_tilde[n][j])
-          matrix_r[i, j] = sum_for_r_i_j
+            sum_for_r_i_j = 0
+            for n in range(len(x_tilde)):
+                sum_for_r_i_j += x_tilde[n][i] * y_tilde[n][j]
+            matrix_r[i, j] = sum_for_r_i_j
     # print("Matrix R:\n", matrix_r)
 
-    # not sure about this stuff up here. may need to be fixed. 
-    # screw it. i'll fix it myself. 
-
+    # not sure about this stuff up here. may need to be fixed.
+    # screw it. i'll fix it myself.
 
     # plug the corresponding values into the matrix F
     matrix_f = np.zeros((4, 4))  # create empty 4x4 matrix
