@@ -113,10 +113,8 @@ def main():
                 entry_2["y"],
                 entry_2["z"],
             )
-
-            pass
-            eigenvalues_of_vector_F.find(shifted1, shifted2)
-            # calc_rmsd.calc()
+            max_eigenvalue = eigenvalues_of_vector_F.find(shifted1, shifted2)
+            calc_rmsd.calc()
 
     # for entry_1 in all_seq2_structures.values():
     #     for entry_2 in all_seq2_structures.values():

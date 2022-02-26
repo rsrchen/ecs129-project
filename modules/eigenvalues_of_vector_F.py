@@ -33,14 +33,17 @@ def find(x_tilde: list[list[float, float, float]], y_tilde: list[list[float, flo
     matrix_f[0, 1] = matrix_r[1, 2] - matrix_r[2, 1]
     matrix_f[0, 2] = matrix_r[2, 0] - matrix_r[0, 2]
     matrix_f[0, 3] = matrix_r[0, 1] - matrix_r[1, 0]
+
     matrix_f[1, 0] = matrix_r[1, 2] - matrix_r[2, 1]
     matrix_f[1, 1] = matrix_r[0, 0] - matrix_r[1, 1] - matrix_r[2, 2]
     matrix_f[1, 2] = matrix_r[0, 1] + matrix_r[1, 0]
-    matrix_f[1, 3] = matrix_r[0, 1] + matrix_r[1, 0]
+    matrix_f[1, 3] = matrix_r[0, 2] + matrix_r[2, 0]
+
     matrix_f[2, 0] = matrix_r[2, 0] - matrix_r[0, 2]
     matrix_f[2, 1] = matrix_r[0, 1] + matrix_r[1, 0]
     matrix_f[2, 2] = -matrix_r[0, 0] + matrix_r[1, 1] - matrix_r[2, 2]
     matrix_f[2, 3] = matrix_r[1, 2] + matrix_r[2, 1]
+
     matrix_f[3, 0] = matrix_r[0, 1] - matrix_r[1, 0]
     matrix_f[3, 1] = matrix_r[0, 2] + matrix_r[2, 0]
     matrix_f[3, 2] = matrix_r[1, 2] + matrix_r[2, 1]
@@ -53,4 +56,4 @@ def find(x_tilde: list[list[float, float, float]], y_tilde: list[list[float, flo
     print("eigenvectors:\n", vects)  # eigenvectors
     maxvalue = max(vals)  # determining max eigenvalue
     print("max eigenvalue:\n", maxvalue)  # max eigenvalue
-    pass
+    return maxvalue
