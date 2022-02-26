@@ -113,7 +113,7 @@ def main():
                 coordinates_dict_2["z"],
             )
             max_eigenvalue = eigenvalues_of_vector_F.find(shifted1, shifted2)
-            rmsd = calc_rmsd.calc(shifted1, shifted2, max_eigenvalue)
+            rmsd = round(calc_rmsd.calc(shifted1, shifted2, max_eigenvalue), 4)
             seq1_rmsd_catalog[key_1 + " and " + key_2] = rmsd
 
     seq2_rmsd_catalog = {}
@@ -128,7 +128,7 @@ def main():
                 coordinates_dict_2["z"],
             )
             max_eigenvalue = eigenvalues_of_vector_F.find(shifted1, shifted2)
-            rmsd = calc_rmsd.calc(shifted1, shifted2, max_eigenvalue)
+            rmsd = round(calc_rmsd.calc(shifted1, shifted2, max_eigenvalue), 4)
             seq2_rmsd_catalog[key_1 + " and " + key_2] = rmsd
 
     for name, rmsd in seq1_rmsd_catalog.items():
