@@ -45,12 +45,12 @@ def find(x_tilde: list[list[float, float, float]], y_tilde: list[list[float, flo
     matrix_f[3, 1] = matrix_r[0, 2] + matrix_r[2, 0]
     matrix_f[3, 2] = matrix_r[1, 2] + matrix_r[2, 1]
     matrix_f[3, 3] = -matrix_r[0, 0] - matrix_r[1, 1] + matrix_r[2, 2]
-    print("Matrix F:", matrix_f)
+    print("Matrix F:\n", matrix_f)
 
     # use linalg to find the eigenvalues and eigenvectors
     vals, vects = lg.eig(matrix_f)
-    print("eigenvalues:", vals)  # eigenvalues
-    print("eigenvectors:", vects)  # eigenvectors
+    print("eigenvalues:\n", vals)  # eigenvalues
+    print("eigenvectors:\n", vects)  # eigenvectors
     maxvalue = max(vals)  # determining max eigenvalue
-    print("max eigenvalue:", maxvalue)  # max eigenvalue
+    print("max eigenvalue:\n", maxvalue)  # max eigenvalue
     pass
