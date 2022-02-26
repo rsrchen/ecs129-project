@@ -1,5 +1,4 @@
-# import modules.shift_to_barycenters as shift_to_barycenters, modules.eigenvalues_of_vector_F as eigenvalues_of_vector_F, modules.calc_rmsd as calc_rmsd
-import numpy as np
+import modules.shift_to_barycenters as shift_to_barycenters, modules.eigenvalues_of_vector_F as eigenvalues_of_vector_F, modules.calc_rmsd as calc_rmsd
 
 
 def main():
@@ -18,8 +17,9 @@ def main():
     """
     print("ECS 129 Protein Structure Comparison Program")
 
-    all_files = {}
-    # the plan is to loop through the lines and stop at each whitespace encounter, take the first thing, put it into an x list, take the second thing, y list, third thing z list. each entry in the dictionary all_files will contain a dictionary itself. that internal dictionary will contain x: [list of x's], y: [list of y's] you get the point
+    all_seq1_structures: dict[str, dict[str, list[float]]] = {}
+    all_seq2_structures: dict[str, dict[str, list[float]]] = {}
+    # the plan is to loop through the lines and stop at each whitespace encounter, take the first thing, put it into an x list, take the second thing, y list, third thing z list. each entry in the dictionary all_seq1_structures will contain a dictionary itself. that internal dictionary will contain x: [list of x's], y: [list of y's] you get the point
 
     # read seq1 coord files.
     location_of_coordinate_files = "coordinate files"
@@ -37,7 +37,7 @@ def main():
                 xlist.append(float(split_line[0]))
                 ylist.append(float(split_line[1]))
                 zlist.append(float(split_line[2]))
-            all_files[key_name] = {
+            all_seq1_structures[key_name] = {
                 "x": xlist,
                 "y": ylist,
                 "z": zlist,
@@ -57,7 +57,7 @@ def main():
                 xlist.append(float(split_line[0]))
                 ylist.append(float(split_line[1]))
                 zlist.append(float(split_line[2]))
-            all_files[key_name] = {
+            all_seq2_structures[key_name] = {
                 "x": xlist,
                 "y": ylist,
                 "z": zlist,
@@ -72,7 +72,7 @@ def main():
             xlist.append(float(split_line[0]))
             ylist.append(float(split_line[1]))
             zlist.append(float(split_line[2]))
-        all_files["seq1goldstandard"] = {
+        all_seq1_structures["seq1goldstandard"] = {
             "x": xlist,
             "y": ylist,
             "z": zlist,
@@ -88,7 +88,7 @@ def main():
             xlist.append(float(split_line[0]))
             ylist.append(float(split_line[1]))
             zlist.append(float(split_line[2]))
-        all_files["seq2goldstandard"] = {
+        all_seq2_structures["seq2goldstandard"] = {
             "x": xlist,
             "y": ylist,
             "z": zlist,
@@ -96,14 +96,33 @@ def main():
 
     pass
 
-    # shift_to_barycenters.shift()
+    # the plan: entry_1 and entry_2 are both dictionaries that look like
+    # { "x": [1,2,3], "y": [1,2,3], "z": [1,2,3] }
+    # need to shift entry_1 and entry_2 to their barycenters
+    # then need to calculate the eigen shit of entry_1 and entry_2
+    # i could be more efficient if i didn't repeat calculations. but fuck that
+    #
 
-    # eigenvalues_of_vector_F.find()
+    for entry_1 in all_seq1_structures.values():
+        for entry_2 in all_seq1_structures.values():
+            shifted1, shifted2 = shift_to_barycenters.shift(
+                entry_1["x"],
+                entry_1["y"],
+                entry_1["z"],
+                entry_2["x"],
+                entry_2["y"],
+                entry_2["z"],
+            )
 
-    # finally, we calculate the root-mean-square deviation between the two structures.
-    # calc_rmsd.calc()
+            pass
+            eigenvalues_of_vector_F.find(shifted1, shifted2)
+            # calc_rmsd.calc()
 
+    # for entry_1 in all_seq2_structures.values():
+    #     for entry_2 in all_seq2_structures.values():
+    #         shift_to_barycenters.shift(entry_1)
+    #         eigenvalues_of_vector_F.find()
+    #         calc_rmsd.calc()
 
-print(np.subtract([100, 200, 300, 400], [10, 20, 30, 40]))
 
 main()
