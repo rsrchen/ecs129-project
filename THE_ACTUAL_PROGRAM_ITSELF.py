@@ -101,31 +101,41 @@ def main():
     # i could be more efficient if i didn't repeat calculations. but fuck that
     # i did the rest without thinking or explaining with comments oops
 
-    for entry_1 in all_seq1_structures.values():
-        for entry_2 in all_seq1_structures.values():
+    seq1_rmsd_catalog = {}
+    for key_1, coordinates_dict_1 in all_seq1_structures.items():
+        for key_2, coordinates_dict_2 in all_seq1_structures.items():
             shifted1, shifted2 = shift_to_barycenters.shift(
-                entry_1["x"],
-                entry_1["y"],
-                entry_1["z"],
-                entry_2["x"],
-                entry_2["y"],
-                entry_2["z"],
+                coordinates_dict_1["x"],
+                coordinates_dict_1["y"],
+                coordinates_dict_1["z"],
+                coordinates_dict_2["x"],
+                coordinates_dict_2["y"],
+                coordinates_dict_2["z"],
             )
             max_eigenvalue = eigenvalues_of_vector_F.find(shifted1, shifted2)
             rmsd = calc_rmsd.calc(shifted1, shifted2, max_eigenvalue)
+            seq1_rmsd_catalog[key_1 + " and " + key_2] = rmsd
 
-    for entry_1 in all_seq2_structures.values():
-        for entry_2 in all_seq2_structures.values():
+    seq2_rmsd_catalog = {}
+    for key_1, coordinates_dict_1 in all_seq2_structures.items():
+        for key_2, coordinates_dict_2 in all_seq2_structures.items():
             shifted1, shifted2 = shift_to_barycenters.shift(
-                entry_1["x"],
-                entry_1["y"],
-                entry_1["z"],
-                entry_2["x"],
-                entry_2["y"],
-                entry_2["z"],
+                coordinates_dict_1["x"],
+                coordinates_dict_1["y"],
+                coordinates_dict_1["z"],
+                coordinates_dict_2["x"],
+                coordinates_dict_2["y"],
+                coordinates_dict_2["z"],
             )
             max_eigenvalue = eigenvalues_of_vector_F.find(shifted1, shifted2)
             rmsd = calc_rmsd.calc(shifted1, shifted2, max_eigenvalue)
+            seq2_rmsd_catalog[key_1 + " and " + key_2] = rmsd
+
+    for name, rmsd in seq1_rmsd_catalog.items():
+        print(name, "RMSD:", rmsd)
+
+    for name, rmsd in seq2_rmsd_catalog.items():
+        print(name, "RMSD:", rmsd)
 
 
 main()

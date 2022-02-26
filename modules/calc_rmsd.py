@@ -9,9 +9,14 @@ def calc(x_tilde_k, y_tilde_k, max_eigenvalue):
         y_k_squared = y_tilde_k[n][0] ** 2 + y_tilde_k[n][1] ** 2 + y_tilde_k[n][2] ** 2
         sum_of_them_two = x_k_squared + y_k_squared
         total_summation += sum_of_them_two
-    rmsd = sqrt((total_summation - 2 * max_eigenvalue) / len(x_tilde_k))
-    print("Root-Mean-Square Deviation:/n", rmsd)
-    return rmsd
+    try:
+        rmsd = sqrt((total_summation - 2 * max_eigenvalue) / len(x_tilde_k))
+        print("Root-Mean-Square Deviation:\n", rmsd)
+        return rmsd
+    except ValueError:
+        rmsd = "ValueError encountered while trying to calculate RMSD."
+        print("Encountered a ValueError while trying to calculate RMSD.")
+        return rmsd
 
     # # for values of the coordinate points add up the x-tilde
     # for i in range(len(x_tilde_k)):
