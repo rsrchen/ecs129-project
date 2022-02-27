@@ -32,7 +32,14 @@ def main():
     4. Calculate the root-mean-square deviation between the two structures.
 
     """
+    print()
+    print("================================================")
     print("ECS 129 Protein Structure Comparison Program")
+    print(
+        "This program calculates and outputs root-mean-square deviations between two protein structures. Check the main() docstring for more details."
+    )
+    print("================================================")
+    print()
 
     all_seq1_structures: dict[str, dict[str, list[float]]] = {}
     all_seq2_structures: dict[str, dict[str, list[float]]] = {}
@@ -100,7 +107,6 @@ def main():
             "y": ylist,
             "z": zlist,
         }
-
     # read seq2 gold standard coord file.
     with open(
         "coordinate files/seq2goldstandard.txt", encoding="utf8"
@@ -119,12 +125,8 @@ def main():
             "z": zlist,
         }
 
-    # the plan: entry_1 and entry_2 are both dictionaries that look like
+    # coordinates_dict_1 and 2 are both dictionaries that look like
     # { "x": [1,2,3], "y": [1,2,3], "z": [1,2,3] }
-    # need to shift entry_1 and entry_2 to their barycenters
-    # then need to calculate the eigen shit of entry_1 and entry_2
-    # i could be more efficient if i didn't repeat calculations. but fuck that
-    # i did the rest without thinking or explaining with comments oops
 
     seq1_rmsd_catalog = {}
     for key_1, coordinates_dict_1 in all_seq1_structures.items():
