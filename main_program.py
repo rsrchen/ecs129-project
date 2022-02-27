@@ -107,7 +107,7 @@ def main():
             "y": ylist,
             "z": zlist,
         }
-    # read seq2 gold standard coord file.
+    # read seq2 gold standard coord file. 
     with open(
         "coordinate files/seq2goldstandard.txt", encoding="utf8"
     ) as alpha_carbon_coordinate_file:
