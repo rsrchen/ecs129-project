@@ -22,8 +22,10 @@ We use the quaternion-based RMSD algorithm provided by Coutsias, Seok, and Dill 
 The science around protein structure prediction is, and has for decades been, absolutely booming. People around the globe are working on computational methods for protein structure prediction day in and day out. You've heard about CASP, the major biannual research competition dedicated to 3D protein structure work. You've heard about AlphaFold, the major recent breakthrough in structure prediction. [Everyone's](https://www.science.org/content/article/google-s-deepmind-aces-protein-folding) [talking](https://www.theguardian.com/science/2018/dec/02/google-deepminds-ai-program-alphafold-predicts-3d-shapes-of-proteins) [about](https://www.nytimes.com/2019/02/05/technology/artificial-intelligence-drug-research-deepmind.html) [this](https://www.forbes.com/sites/samshead/2018/12/03/deepmind-starts-to-show-how-ai-can-be-used-to-solve-scientific-problems/?sh=46c3570be1e2) [shit](https://www.youtube.com/watch?v=gVzPMZqOTo4). It's changing the future. The point is—it's a huge area of research, and it's incredibly interesting. That's why we chose to focus on it for our ECS 129 project and write a program that evaluates just how good a protein structure prediction really is by comparing it to the empirically-determined true structure.
 
 ## Who
-Raymond Chen - programming, debugging, refactoring, report writing, writing this readme
+Raymond Chen - programming, debugging, refactoring, report - writing, writing this readme
+
 Emily Cheng - programming, report writing
+
 Daniel Cardenas - programming, report writing
 
 ## Report
