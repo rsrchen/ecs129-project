@@ -9,24 +9,22 @@ def shift(
     second_y: list[float],
     second_z: list[float],
 ):
-    def average(lst):
-        return sum(lst) / len(lst)
 
     # alpha carbon coordinates
     first_all_atoms_coords = list(zip(first_x, first_y, first_z))
     # calculating component average
-    avg_first_x = average(first_x)
-    avg_first_y = average(first_y)
-    avg_first_z = average(first_z)
+    avg_first_x = np.mean(first_x)
+    avg_first_y = np.mean(first_y)
+    avg_first_z = np.mean(first_z)
 
     first_barycenter = [avg_first_x, avg_first_y, avg_first_z]
 
     # alpha carbon coordinates
     second_all_atoms_coords = list(zip(second_x, second_y, second_z))
     # calculating component average
-    avg_second_x = average(second_x)
-    avg_second_y = average(second_y)
-    avg_second_z = average(second_z)
+    avg_second_x = np.mean(second_x)
+    avg_second_y = np.mean(second_y)
+    avg_second_z = np.mean(second_z)
 
     second_barycenter = [avg_second_x, avg_second_y, avg_second_z]
 
