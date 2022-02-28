@@ -1,7 +1,7 @@
 from modules import shift_to_barycenters
 from modules import eigenvalues_of_vector_F
 from modules import calc_rmsd
-from modules import generate_heatmap
+from modules import generate_plots
 
 
 def read_files():
@@ -96,6 +96,7 @@ def read_files():
         }
     return (all_seq1_structures, all_seq2_structures)
 
+
 def main():
     """
     Determine the root-mean-square deviation between AlphaFold's protein structure predictions and
@@ -181,7 +182,8 @@ def main():
     for name, rmsd in seq2_rmsd_catalog.items():
         print(name, "RMSD:", rmsd)
 
-    generate_heatmap.generate(seq1_rmsd_catalog)
-    generate_heatmap.generate(seq2_rmsd_catalog)
+    generate_plots.generate(seq1_rmsd_catalog)
+    generate_plots.generate(seq2_rmsd_catalog)
+
 
 main()

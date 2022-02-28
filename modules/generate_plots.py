@@ -10,10 +10,10 @@ from textwrap import wrap
 def generate(dictionary_of_RMSDs: dict[str, float]):
     """
     Given a dictionary of RMSDs comparing AlphaFold predictions to
-    experimentally-determined structures, generate 2 color-coded heatmaps:
-    one that compares all of the RMSDs to one another, and another that
-    compares only the RMSDs of the predicted structures to the
-    RMSD of the experimentally-determined structure.
+    experimentally-determined structures, generate 1 color-coded heatmap
+    that compares all of the RMSDs to one another, and 1 log-scale bar graph
+    that compares only the RMSDs of the predicted structures to the RMSD of
+    the experimentally-determined structure.
 
     """
     # the plan: take all the keys and decompose them to get individual tokens. seq1rank1, seq1rank2, etc. then put them into a set. loop through the values and populate a 2D array with them.
@@ -41,7 +41,7 @@ def generate(dictionary_of_RMSDs: dict[str, float]):
     structure_names_list.remove(structure_names_list[0])
 
     # here's where the plotting begins
-    fig, ax = plt.subplots(ncols=2, figsize=(15, 8))
+    fig, ax = plt.subplots(ncols=2, figsize=(14, 9))
     plt.tight_layout(pad=10)
     ax[0].imshow(rmsd_array, cmap="RdPu")
     ax[0].set_title(
@@ -55,9 +55,8 @@ def generate(dictionary_of_RMSDs: dict[str, float]):
     ax[0].set_xticks(range(array_side_size), labels=structure_names_list)
     ax[0].set_yticks(range(array_side_size), labels=structure_names_list)
     ax[0].set_xlabel(
-        "Each tick is labeled with the name we have given the structure, which consists of its corresponding sequence (e.g. seq1) and its rank, as ranked by AlphaFold (e.g. rank3). The experimentally determined structure is given the name 'goldstandard.' ",
-        labelpad=20,
-        wrap=True,
+        "Each tick is labeled with the name we have given the structure, \nwhich consists of its corresponding sequence (e.g. seq1) and \nits rank, as ranked by AlphaFold (e.g. rank3). The experimentally \ndetermined structure is given the name 'goldstandard.' ",
+        labelpad=10,
     )
     plt.setp(ax[0].get_xticklabels(), rotation=20, ha="right", rotation_mode="anchor")
 
