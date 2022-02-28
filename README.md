@@ -6,7 +6,7 @@
   - [How](#how)
   - [Why](#why)
   - [Who](#who)
-  - [Report](#-wait-whats-that-report-writing)
+  - [Report](#report)
 
 
 ## What 
@@ -26,5 +26,5 @@ Raymond Chen - programming, debugging, refactoring, report writing, writing this
 Emily Cheng - programming, report writing
 Daniel Cardenas - programming, report writing
 
-## ^^^ Wait, what's that? Report writing?
-Yes. We wrote a report on this program for ECS 129 - Computational Structural Bioinformatics. Took the class winter quarter 2022 with [Professor Patrice Koehl](https://www.cs.ucdavis.edu/~koehl/index.html), who I think is a great person and a very passionate instructor. I'll add a link to [the report](http://www.example.com) as soon as possible. 
+## Report
+You may have noticed credit for "report writing" in the previous section. We wrote a report on this program for ECS 129 - Computational Structural Bioinformatics. Took the class winter quarter 2022 with [Professor Patrice Koehl](https://www.cs.ucdavis.edu/~koehl/index.html), who I think is a great person and a very passionate instructor. I'll add a link to [the report](http://www.example.com) as soon as possible. 
