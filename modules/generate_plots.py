@@ -1,8 +1,6 @@
 from textwrap import wrap
 import numpy as np
 import math
-import matplotlib
-from matplotlib import cm
 import matplotlib.pyplot as plt
 from textwrap import wrap
 
