@@ -25,9 +25,9 @@ class Select:
 def get_alpha_carbons():
     pdb_parser = PDBParser()
     pdb_io = PDBIO()
-    protein_1ab1 = pdb_parser.get_structure(id="1ab1", file="1ab1.pdb")
+    protein_1ab1 = pdb_parser.get_structure(id="4x96", file="4x96.pdb1")
     pdb_io.set_structure(protein_1ab1)
-    pdb_io.save("1ab1_out.pdb", Select())
+    pdb_io.save("4x96_out.pdb", Select())
     pass
 
 
