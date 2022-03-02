@@ -22,7 +22,7 @@ def read_files():
     # read seq1 coord files.
     location_of_coordinate_files = "coordinate files"
     for i in range(1, 6):
-        key_name = "4x96rank" + str(i)
+        key_name = "1ab1rank" + str(i)
         filename = key_name + ".txt"
         with open(
             location_of_coordinate_files + "/" + filename, encoding="utf8"
@@ -62,7 +62,7 @@ def read_files():
             }
     # read seq1 gold standard coord file.
     with open(
-        "coordinate files/4x96goldstandard.txt", encoding="utf8"
+        "coordinate files/1ab1goldstandard.txt", encoding="utf8"
     ) as alpha_carbon_coordinate_file:
         xlist = []
         ylist = []
@@ -72,7 +72,7 @@ def read_files():
             xlist.append(float(split_line[0]))
             ylist.append(float(split_line[1]))
             zlist.append(float(split_line[2]))
-        all_seq1_structures["4x96goldstandard"] = {
+        all_seq1_structures["1ab1goldstandard"] = {
             "x": xlist,
             "y": ylist,
             "z": zlist,
