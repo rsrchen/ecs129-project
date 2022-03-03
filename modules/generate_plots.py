@@ -82,7 +82,7 @@ def generate(dictionary_of_RMSDs: dict[str, float]):
     )
     ax[1].set_yscale("log")
     ax[1].set_xlabel("Name and Rank of Structure Prediction", labelpad=20)
-    ax[1].set_ylabel("Logarithm of Root-Mean-Square Deviation", labelpad=20)
+    ax[1].set_ylabel("Root-Mean-Square Deviation", labelpad=20)
 
     # and voila!
     plt.show()
