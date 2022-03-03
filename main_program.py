@@ -53,36 +53,33 @@ def main(pdb_id: str, predictions_dir: str, solved_dir: str):
 
     # produce a dictionary of alpha carbon coordinates from AlphaFold's structure predictions.
     # contains at least 5 entries. probably more. i need to figure out how to separate them based on sequence
-    # 
-    alpha_carbon_coords_dictionary = set_up_coord_files.execute(predictions_dir, pdb_id)
+    # i'll do that later
+    alpha_carbon_coords_dictionary = set_up_coord_files.main(pdb_id, predictions_dir, solved_dir)
 
     pass
 
-    # coordinates_dict_1 and 2 are both dictionaries that look like
-    # { "x": [1,2,3], "y": [1,2,3], "z": [1,2,3] }
-    # now it's time to get to work comparing everything to everything.
-    # sequence 1 comparisons first.
+    # the alpha carbon coords dictionary looks like this:
+    # {"rank1": [[x1,y1,z1],[x2,y2,z2], ...], "rank2": [[x1,y1,z1],[x2,y2,z2], ...], ...}
+    #
     rmsd_catalog = {}
-    for key_1, coordinates_dict_1 in all_seq1_structures.items():
-        for key_2, coordinates_dict_2 in all_seq1_structures.items():
+    for key_1, coordinates_array_1 in alpha_carbon_coords_dictionary.items():
+        for key_2, coordinates_array_2 in alpha_carbon_coords_dictionary.items():
             shifted1, shifted2 = shift_to_barycenters.shift(
-                coordinates_dict_1["x"],
-                coordinates_dict_1["y"],
-                coordinates_dict_1["z"],
-                coordinates_dict_2["x"],
-                coordinates_dict_2["y"],
-                coordinates_dict_2["z"],
+                list(zip(*coordinates_array_1))[0],
+                list(zip(*coordinates_array_1))[1],
+                list(zip(*coordinates_array_1))[2],
+                list(zip(*coordinates_array_2))[0],
+                list(zip(*coordinates_array_2))[1],
+                list(zip(*coordinates_array_2))[2],
             )
             max_eigenvalue = eigenvalues_of_vector_F.find(shifted1, shifted2)
             rmsd = round(calc_rmsd.calc(shifted1, shifted2, max_eigenvalue), 4)
-            seq1_rmsd_catalog[key_1 + " and " + key_2] = rmsd
+            rmsd_catalog[key_1 + " and " + key_2] = rmsd
 
     # then it's time for sequence 2 comparisons.
-    
+
     # print the results of our comparisons. the RMSDs.
-    for name, rmsd in seq1_rmsd_catalog.items():
+    for name, rmsd in rmsd_catalog.items():
         print(name, "RMSD:", rmsd)
 
-    generate_plots.generate(seq1_rmsd_catalog)
-
-
+    generate_plots.generate(rmsd_catalog)
