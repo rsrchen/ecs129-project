@@ -1,5 +1,6 @@
 from Bio.PDB import PDBParser
 from Bio.PDB import PDBIO
+from Bio.SeqUtils import seq1
 
 
 class Select:
@@ -10,13 +11,14 @@ class Select:
         return 1
 
     def accept_residue(self, residue):
+        # print(seq1(residue.get_resname()), end="")
         return 1
 
     def accept_atom(self, atom):
-        print("atom id:" + atom.get_id())
-        print("atom name:" + atom.get_name())
+        # print("atom id:" + atom.get_id())
+        # print("atom name:" + atom.get_name())
         if atom.get_name() == "CA":
-            print("True")
+            # print("True")
             return 1
         else:
             return 0
