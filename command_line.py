@@ -28,6 +28,7 @@ overview:
 
 
 def main():
+    pdb_id = None
     predictions_dir = "alphafold_predictions"
     solved_dir = "solved_structures"
     strung_out = " "
@@ -78,6 +79,9 @@ def main():
             print("Error: no argument provided for -p.")
             return 0
 
+    if not pdb_id:
+        print("Error: PDB ID cannot be empty.")
+        return 0
     some_path = Path(predictions_dir)
     if not some_path.exists():
         print(f'Error: directory "{predictions_dir}" does not exist.')
@@ -92,7 +96,6 @@ def main():
 # if main goes off without a hitch
 go = main()
 if go:
-    print(go[0], go[1], go[2])
-    # main_program.main(go[0], go[1], go[2])
+    main_program.main(go[0], go[1], go[2])
 else:
     print("Program execution aborted.")

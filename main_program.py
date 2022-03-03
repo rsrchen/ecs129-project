@@ -7,7 +7,6 @@ from modules import set_up_coord_files
 """
 TODO:
 - make it runnable w/ command line arguments. 4 letter code of protein, directory containing your pdb files, directory containing your coordinate files, etc. 
-- make it asynchronous. have it do shit to a file, wait for the file to get written to, pick up right there, etc. the parsing and awking and stuff. 
 - make it accept 1 sequence. less hard-coded, more free. have it accept 1 sequence. or 4. or 12. not always 2 only. 
 """
 
@@ -53,13 +52,17 @@ def main(pdb_id: str, predictions_dir: str, solved_dir: str):
     print()
 
     # produce a dictionary of alpha carbon coordinates from AlphaFold's structure predictions.
-    alpha_carbon_coords_dictionary = set_up_coord_files.execute("pdb_files", "1ab1")
+    # contains at least 5 entries. probably more. i need to figure out how to separate them based on sequence
+    # 
+    alpha_carbon_coords_dictionary = set_up_coord_files.execute(predictions_dir, pdb_id)
+
+    pass
 
     # coordinates_dict_1 and 2 are both dictionaries that look like
     # { "x": [1,2,3], "y": [1,2,3], "z": [1,2,3] }
     # now it's time to get to work comparing everything to everything.
     # sequence 1 comparisons first.
-    seq1_rmsd_catalog = {}
+    rmsd_catalog = {}
     for key_1, coordinates_dict_1 in all_seq1_structures.items():
         for key_2, coordinates_dict_2 in all_seq1_structures.items():
             shifted1, shifted2 = shift_to_barycenters.shift(
@@ -75,29 +78,11 @@ def main(pdb_id: str, predictions_dir: str, solved_dir: str):
             seq1_rmsd_catalog[key_1 + " and " + key_2] = rmsd
 
     # then it's time for sequence 2 comparisons.
-    seq2_rmsd_catalog = {}
-    for key_1, coordinates_dict_1 in all_seq2_structures.items():
-        for key_2, coordinates_dict_2 in all_seq2_structures.items():
-            shifted1, shifted2 = shift_to_barycenters.shift(
-                coordinates_dict_1["x"],
-                coordinates_dict_1["y"],
-                coordinates_dict_1["z"],
-                coordinates_dict_2["x"],
-                coordinates_dict_2["y"],
-                coordinates_dict_2["z"],
-            )
-            max_eigenvalue = eigenvalues_of_vector_F.find(shifted1, shifted2)
-            rmsd = round(calc_rmsd.calc(shifted1, shifted2, max_eigenvalue), 4)
-            seq2_rmsd_catalog[key_1 + " and " + key_2] = rmsd
-
+    
     # print the results of our comparisons. the RMSDs.
     for name, rmsd in seq1_rmsd_catalog.items():
         print(name, "RMSD:", rmsd)
 
-    for name, rmsd in seq2_rmsd_catalog.items():
-        print(name, "RMSD:", rmsd)
-
     generate_plots.generate(seq1_rmsd_catalog)
-    generate_plots.generate(seq2_rmsd_catalog)
 
 
