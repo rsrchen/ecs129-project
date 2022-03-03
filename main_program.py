@@ -3,6 +3,12 @@ from modules import eigenvalues_of_vector_F
 from modules import calc_rmsd
 from modules import generate_plots
 
+"""
+TODO:
+- make it runnable w/ command line arguments. 4 letter code of protein, directory containing your pdb files, directory containing your coordinate files, etc. 
+- make it asynchronous. have it do shit to a file, wait for the file to get written to, pick up right there, etc. the parsing and awking and stuff. 
+- make it accept 1 sequence. less hard-coded, more free. have it accept 1 sequence. or 4. or 12. not always 2 only. 
+"""
 
 def read_files():
     """
