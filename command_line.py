@@ -1,6 +1,7 @@
 import sys
 import regex
 from pathlib import Path
+import main_program
 
 """
 so. how's it gonna be?
@@ -39,6 +40,8 @@ def main():
         if flag not in valid_flags:
             print("Invalid flags detected.")
             return 0
+
+    valid_flags = [flag.strip() for flag in valid_flags]
 
     # -a is the flag people will use to indicate alphafold predictions PDB files directory
     if "-a" in sys.argv:
@@ -83,6 +86,13 @@ def main():
     if not some_path.exists():
         print(f'Error: directory "{solved_dir}" does not exist.')
         return 0
+    return (pdb_id, predictions_dir, solved_dir)
 
 
-main()
+# if main goes off without a hitch
+go = main()
+if go:
+    print(go[0], go[1], go[2])
+    # main_program.main(go[0], go[1], go[2])
+else:
+    print("Program execution aborted.")

@@ -12,7 +12,6 @@ TODO:
 """
 
 
-
 def main(pdb_id: str, predictions_dir: str, solved_dir: str):
     """
     Determine the root-mean-square deviation between AlphaFold's protein structure predictions and
@@ -55,7 +54,7 @@ def main(pdb_id: str, predictions_dir: str, solved_dir: str):
 
     # produce a dictionary of alpha carbon coordinates from AlphaFold's structure predictions.
     alpha_carbon_coords_dictionary = set_up_coord_files.execute("pdb_files", "1ab1")
-    
+
     # coordinates_dict_1 and 2 are both dictionaries that look like
     # { "x": [1,2,3], "y": [1,2,3], "z": [1,2,3] }
     # now it's time to get to work comparing everything to everything.
@@ -102,4 +101,3 @@ def main(pdb_id: str, predictions_dir: str, solved_dir: str):
     generate_plots.generate(seq2_rmsd_catalog)
 
 
-main()
