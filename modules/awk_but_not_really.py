@@ -10,5 +10,5 @@ def create_coordinates_text_file(filename: str | Path, pdb_id: str):
             if len(line) > 2 and line[2] == "CA" and line[0] == "ATOM":
                 output_string += line[6] + " " + line[7] + " " + line[8] + "\n"
     for i in range(1, 6):
-        with open("coordinate_files/" + pdb_id + "rank" + str(i) + ".pdb", "w") as write_file:
+        with open("coordinate_files/" + pdb_id + "_rank" + str(i) + ".pdb", "w") as write_file:
             write_file.write(output_string)
