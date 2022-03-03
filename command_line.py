@@ -7,12 +7,16 @@ import main_program
 so. how's it gonna be?
 
 default settings:
-compute rmsd for all pdb files in the folder
-accept 4 character PDB ID, exit if it's not given. doesn't need to be 4 chars.
 directory containing alphafold prediction PDB files is ./alphafold_predictions
 directory containing true structure PDB files is ./solved_structures
+chain A
+require colabfold hash, exit if it's not given. needs to be valid; it'll be checked.
+require 4 character PDB ID, exit if it's not given. needs to be valid. it'll be checked.
 
 changeable settings:
+PDB ID
+which chains to look at from the experimentally-determined structure
+colabfold hash
 PDB files directory
 true structures directory
 

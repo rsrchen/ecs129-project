@@ -1,8 +1,11 @@
+from time import sleep
 from modules import set_up_coord_files, shift_to_barycenters
 from modules import eigenvalues_of_vector_F
 from modules import calc_rmsd
 from modules import generate_plots
 from modules import set_up_coord_files
+from tqdm import tqdm
+from random import randint
 
 """
 TODO:
@@ -11,7 +14,9 @@ TODO:
 """
 
 
-def main(pdb_id: str, colabfold_hash: str, chains: str, predictions_dir: str, solved_dir: str):
+def main(
+    pdb_id: str, colabfold_hash: str, chains: str, predictions_dir: str, solved_dir: str
+):
     """
     Determine the root-mean-square deviation between AlphaFold's protein structure predictions and
     the true protein structure as determined by crystallography/other empirical experimental
@@ -51,10 +56,17 @@ def main(pdb_id: str, colabfold_hash: str, chains: str, predictions_dir: str, so
     print("================================================")
     print()
 
+    # loading bar for fun. it's entirely unnecessary. haha.
+    print("Working...")
+    for i in tqdm(range(randint(90, 110))):
+        sleep(0.005)
+
     # produce a dictionary of alpha carbon coordinates from AlphaFold's structure predictions.
     # contains at least 5 entries. probably more. i need to figure out how to separate them based on sequence
     # i'll do that later
-    alpha_carbon_coords_dictionary = set_up_coord_files.main(pdb_id, colabfold_hash, chains, predictions_dir, solved_dir)
+    alpha_carbon_coords_dictionary = set_up_coord_files.main(
+        pdb_id, colabfold_hash, chains, predictions_dir, solved_dir
+    )
 
     pass
 
