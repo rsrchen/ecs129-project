@@ -1,4 +1,4 @@
-def create_coordinates_text_file(filename: str):
+def create_coordinates_text_file(filename: str, pdb_id: str):
     output_string = ""
     with open(filename) as pdb_file:
         for line in pdb_file:
@@ -6,8 +6,8 @@ def create_coordinates_text_file(filename: str):
             #  awk '{if($3=="CA" && $1=="ATOM") print $7 " " $8 " " $9}' test_405fa_unrelaxed_rank_5_model_5.pdb > 7q4mrank5.txt
             if len(line) >= 2 and line[2] == "CA" and line[0] == "ATOM":
                 output_string += line[6] + " " + line[7] + " " + line[8] + "\n"
-    for i in range(5):
-        with open(filename + str(i), "w") as write_file:
+    for i in range(1, 6):
+        with open(filename.split("_")[0] + str(i) + ".pdb", "w") as write_file:
             write_file.write(output_string)
                 
-create_coordinates_text_file("4x96_out_spaced_coords.pdb")
+create_coordinates_text_file("test", "1ab1")
