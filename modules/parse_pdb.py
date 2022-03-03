@@ -31,7 +31,7 @@ class AlphaCarbonSelect(Select):
 def get_alpha_carbons(
     filename: str | Path, pdb_id: str, chains: str, use_chains: bool = False
 ):
-    pdb_parser = PDBParser()
+    pdb_parser = PDBParser(QUIET=True)
     # pdb_io = PDBIO()
     protein = pdb_parser.get_structure(id=pdb_id, file=filename)
     protein_atoms = protein.get_atoms()
