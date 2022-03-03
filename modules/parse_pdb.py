@@ -1,7 +1,8 @@
+from pathlib import Path
 from Bio.PDB import PDBParser
 from Bio.PDB import PDBIO
-from Bio.SeqUtils import seq1
-from Bio.PDB.PDBIO import Select 
+# from Bio.SeqUtils import seq1
+from Bio.PDB.PDBIO import Select
 
 
 class AlphaCarbonSelect(Select):
@@ -25,17 +26,13 @@ class AlphaCarbonSelect(Select):
             return 0
 
 
-def get_alpha_carbons():
+def get_alpha_carbons(filename: str | Path, pdb_id: str):
     pdb_parser = PDBParser()
     pdb_io = PDBIO()
-    protein_1ab1 = pdb_parser.get_structure(
-        id="bruh", file="test_3aafb_unrelaxed_rank_2_model_3.pdb"
-    )
-    pdb_io.set_structure(protein_1ab1)
-    pdb_io.save("test_3aafb_unrelaxed_rank_2_model_3_out.pdb", AlphaCarbonSelect())
+    protein = pdb_parser.get_structure(id=pdb_id, file=filename)
+    pdb_io.set_structure(protein)
+    pdb_io.save((str(filename).split(".pdb")[0]) + "_alpha_carbons.pdb", AlphaCarbonSelect())
     pass
 
-
-get_alpha_carbons()
 
 pass
