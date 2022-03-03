@@ -1,7 +1,7 @@
 from Bio.PDB import PDBParser
 from Bio.PDB import PDBIO
 from Bio.SeqUtils import seq1
-from Bio.PDB.PDBIO import Select
+from Bio.PDB.PDBIO import Select 
 
 
 class AlphaCarbonSelect(Select):
