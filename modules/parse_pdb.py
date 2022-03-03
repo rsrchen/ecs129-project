@@ -28,17 +28,26 @@ class AlphaCarbonSelect(Select):
             return 0
 
 
-def get_alpha_carbons(filename: str | Path, pdb_id: str):
+def get_alpha_carbons(
+    filename: str | Path, pdb_id: str, chains: str, use_chains: bool = False
+):
     pdb_parser = PDBParser()
     # pdb_io = PDBIO()
     protein = pdb_parser.get_structure(id=pdb_id, file=filename)
     protein_atoms = protein.get_atoms()
     alpha_carbon_coords = []
-    [
-        alpha_carbon_coords.append(atom.coord)
-        for atom in protein_atoms
-        if atom.name == "CA"
-    ]
+    if use_chains:
+        [
+            alpha_carbon_coords.append(atom.coord)
+            for atom in protein_atoms
+            if atom.name == "CA" and atom.get_full_id()[2] in chains
+        ]
+    else:
+        [
+            alpha_carbon_coords.append(atom.coord)
+            for atom in protein_atoms
+            if atom.name == "CA"
+        ]
     return alpha_carbon_coords
     # pdb_io.set_structure(protein)
 

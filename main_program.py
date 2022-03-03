@@ -11,7 +11,7 @@ TODO:
 """
 
 
-def main(pdb_id: str, predictions_dir: str, solved_dir: str):
+def main(pdb_id: str, colabfold_hash: str, chains: str, predictions_dir: str, solved_dir: str):
     """
     Determine the root-mean-square deviation between AlphaFold's protein structure predictions and
     the true protein structure as determined by crystallography/other empirical experimental
@@ -54,7 +54,7 @@ def main(pdb_id: str, predictions_dir: str, solved_dir: str):
     # produce a dictionary of alpha carbon coordinates from AlphaFold's structure predictions.
     # contains at least 5 entries. probably more. i need to figure out how to separate them based on sequence
     # i'll do that later
-    alpha_carbon_coords_dictionary = set_up_coord_files.main(pdb_id, predictions_dir, solved_dir)
+    alpha_carbon_coords_dictionary = set_up_coord_files.main(pdb_id, colabfold_hash, chains, predictions_dir, solved_dir)
 
     pass
 

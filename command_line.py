@@ -30,13 +30,14 @@ overview:
 def main():
     colabfold_jobname_hash = None
     pdb_id = None
+    chains = "A"
     predictions_dir = "alphafold_predictions"
     solved_dir = "solved_structures"
     strung_out = " "
     for x in sys.argv:
         strung_out += x + " "
     flags_entered = regex.findall(r"\s-\S\s", strung_out)
-    valid_flags = [" -a ", " -s ", " -p ", " -h "]
+    valid_flags = [" -a ", " -s ", " -p ", " -h ", " -c "]
 
     for flag in flags_entered:
         if flag not in valid_flags:
@@ -56,6 +57,10 @@ def main():
             print(
                 "No argument provided for -a; default predicted structures directory (./alphafold_predictions) will be used."
             )
+    else:
+        print(
+            "No argument provided for -a; default predicted structures directory (./alphafold_predictions) will be used."
+        )
 
     # -s is for solved structures directory
     if "-s" in sys.argv:
@@ -68,6 +73,10 @@ def main():
             print(
                 "No argument provided for -s; default solved structures directory (./solved_structures) will be used."
             )
+    else:
+        print(
+            "No argument provided for -s; default solved structures directory (./solved_structures) will be used."
+        )
 
     # -p is the pdb id
     if "-p" in sys.argv:
@@ -91,6 +100,18 @@ def main():
             print("Error: no argument provided for -h.")
             return 0
 
+    # -c is which chain. or chains. A chain, B chain, C, D, etc. entered like "A" or "ABC", alphabetically
+    if "-c" in sys.argv:
+        try:
+            chains = sys.argv[sys.argv.index("-c") + 1]
+            if chains in valid_flags:
+                print("Error: invalid argument provided for -c.")
+                return 0
+        except IndexError:
+            print("No argument provided for -c; default chain A will be used.")
+    else:
+        print("No argument provided for -c; default chain A will be used.")
+
     if not pdb_id:
         print("Error: PDB ID cannot be empty.")
         return 0
@@ -110,23 +131,25 @@ def main():
         print(f"Error: {pdb_id}.pdb does not exist.")
         return 0
     some_path = Path(f"{predictions_dir}")
-    all_predictions_with_a_given_hash = list(some_path.glob(
-        f"*{colabfold_jobname_hash}*.pdb"
-    ))
+    all_predictions_with_a_given_hash = list(
+        some_path.glob(f"*{colabfold_jobname_hash}*.pdb")
+    )
     if not all_predictions_with_a_given_hash:
         print(f"Error: invalid ColabFold structure name hash given. ")
         return 0
     if len(all_predictions_with_a_given_hash) != 5:
-        print(f"Error: there must be exactly 5 AlphaFold structure predictions per protein in the AlphaFold prediction directory.")
+        print(
+            f"Error: there must be exactly 5 AlphaFold structure predictions per protein in the AlphaFold prediction directory."
+        )
         return 0
-    return (pdb_id, predictions_dir, solved_dir)
+    return (pdb_id, colabfold_jobname_hash, chains, predictions_dir, solved_dir)
 
 
 go = main()
 
 # if main goes off without a hitch
 if go:
-    # main_program.main(go[0], go[1], go[2])
+    main_program.main(go[0], go[1], go[2], go[3], go[4])
     pass
 else:
     print("Program execution aborted.")
