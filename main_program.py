@@ -13,7 +13,7 @@ TODO:
 
 
 
-def main():
+def main(pdb_id: str, predictions_dir: str, solved_dir: str):
     """
     Determine the root-mean-square deviation between AlphaFold's protein structure predictions and
     the true protein structure as determined by crystallography/other empirical experimental
