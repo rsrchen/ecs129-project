@@ -1,9 +1,10 @@
 from Bio.PDB import PDBParser
 from Bio.PDB import PDBIO
 from Bio.SeqUtils import seq1
+from Bio.PDB.PDBIO import Select
 
 
-class Select:
+class AlphaCarbonSelect(Select):
     def accept_model(self, model):
         return 1
 
@@ -27,11 +28,14 @@ class Select:
 def get_alpha_carbons():
     pdb_parser = PDBParser()
     pdb_io = PDBIO()
-    protein_1ab1 = pdb_parser.get_structure(id="4x96", file="4x96.pdb1")
+    protein_1ab1 = pdb_parser.get_structure(
+        id="4x96", file="pdb files and processed pdb files/4x96.pdb1"
+    )
     pdb_io.set_structure(protein_1ab1)
-    pdb_io.save("4x96_out.pdb", Select())
+    pdb_io.save("4x96_out.pdb", AlphaCarbonSelect())
     pass
 
 
 get_alpha_carbons()
+
 pass
