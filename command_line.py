@@ -28,6 +28,7 @@ overview:
 
 
 def main():
+    colabfold_jobname_hash = None
     pdb_id = None
     predictions_dir = "alphafold_predictions"
     solved_dir = "solved_structures"
@@ -35,7 +36,7 @@ def main():
     for x in sys.argv:
         strung_out += x + " "
     flags_entered = regex.findall(r"\s-\S\s", strung_out)
-    valid_flags = [" -a ", " -s ", " -p "]
+    valid_flags = [" -a ", " -s ", " -p ", " -h "]
 
     for flag in flags_entered:
         if flag not in valid_flags:
@@ -79,8 +80,22 @@ def main():
             print("Error: no argument provided for -p.")
             return 0
 
+    # -h is the colabfold structure name hash. the 5 character code in the name that comes before "unrelaxed"
+    if "-h" in sys.argv:
+        try:
+            colabfold_jobname_hash = sys.argv[sys.argv.index("-h") + 1]
+            if colabfold_jobname_hash in valid_flags:
+                print("Error: invalid argument provided for -h.")
+                return 0
+        except IndexError:
+            print("Error: no argument provided for -h.")
+            return 0
+
     if not pdb_id:
         print("Error: PDB ID cannot be empty.")
+        return 0
+    if not colabfold_jobname_hash:
+        print("Error: ColabFold structure name hash cannot be empty.")
         return 0
     some_path = Path(predictions_dir)
     if not some_path.exists():
@@ -90,12 +105,28 @@ def main():
     if not some_path.exists():
         print(f'Error: directory "{solved_dir}" does not exist.')
         return 0
+    some_path = Path(f"{solved_dir}/{pdb_id}.pdb")
+    if not some_path.exists():
+        print(f"Error: {pdb_id}.pdb does not exist.")
+        return 0
+    some_path = Path(f"{predictions_dir}")
+    all_predictions_with_a_given_hash = list(some_path.glob(
+        f"*{colabfold_jobname_hash}*.pdb"
+    ))
+    if not all_predictions_with_a_given_hash:
+        print(f"Error: invalid ColabFold structure name hash given. ")
+        return 0
+    if len(all_predictions_with_a_given_hash) != 5:
+        print(f"Error: there must be exactly 5 AlphaFold structure predictions per protein in the AlphaFold prediction directory.")
+        return 0
     return (pdb_id, predictions_dir, solved_dir)
 
 
-# if main goes off without a hitch
 go = main()
+
+# if main goes off without a hitch
 if go:
-    main_program.main(go[0], go[1], go[2])
+    # main_program.main(go[0], go[1], go[2])
+    pass
 else:
     print("Program execution aborted.")
