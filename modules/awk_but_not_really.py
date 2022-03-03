@@ -9,5 +9,4 @@ def create_coordinates_text_file(filename: str, pdb_id: str):
     for i in range(1, 6):
         with open(filename.split("_")[0] + str(i) + ".pdb", "w") as write_file:
             write_file.write(output_string)
-                
-create_coordinates_text_file("test", "1ab1")
+
