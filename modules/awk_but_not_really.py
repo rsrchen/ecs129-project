@@ -1,4 +1,12 @@
-
-def awk_kinda():
-    with open() as pdb_file:
-      pass
+def create_coordinates_text_file(filename: str):
+    output_string = ""
+    with open(filename) as pdb_file:
+        for line in pdb_file:
+            line = line.split()
+            #  awk '{if($3=="CA" && $1=="ATOM") print $7 " " $8 " " $9}' test_405fa_unrelaxed_rank_5_model_5.pdb > 7q4mrank5.txt
+            if line[2] == "CA" & line[0] == "ATOM":
+                output_string += line[6] + " " + line[7] + " " + line[8] + "\n"
+    for i in range(5):
+        with open(str(filename + i), "w") as write_file:
+            write_file.write(output_string)
+                
