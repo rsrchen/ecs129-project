@@ -1,7 +1,8 @@
-from modules import shift_to_barycenters
+from modules import set_up_coord_files, shift_to_barycenters
 from modules import eigenvalues_of_vector_F
 from modules import calc_rmsd
 from modules import generate_plots
+from modules import set_up_coord_files
 
 """
 TODO:
@@ -10,97 +11,6 @@ TODO:
 - make it accept 1 sequence. less hard-coded, more free. have it accept 1 sequence. or 4. or 12. not always 2 only. 
 """
 
-def read_files():
-    """
-    Read the files in the folder titled "coordinate files." The filenames are
-    predetermined.
-
-    Return: a tuple with length 2 containing all_seq1_structures and all_seq2_structures.
-    """
-    all_seq1_structures: dict[str, dict[str, list[float]]] = {}
-    all_seq2_structures: dict[str, dict[str, list[float]]] = {}
-    # the plan is to loop through the lines and stop at each whitespace encounter,
-    # take the first thing, put it into an x list, take the second thing, y list,
-    # third thing z list. each entry in the dictionary all_seq1_structures will
-    # contain a dictionary itself. that internal dictionary will
-    # contain x: [list of x's], y: [list of y's] you get the point
-
-    # read seq1 coord files.
-    location_of_coordinate_files = "coordinate files"
-    for i in range(1, 6):
-        key_name = "4x96rank" + str(i)
-        filename = key_name + ".txt"
-        with open(
-            location_of_coordinate_files + "/" + filename, encoding="utf8"
-        ) as alpha_carbon_coordinate_file:
-            xlist = []
-            ylist = []
-            zlist = []
-            for line in alpha_carbon_coordinate_file:
-                split_line = line.split()
-                xlist.append(float(split_line[0]))
-                ylist.append(float(split_line[1]))
-                zlist.append(float(split_line[2]))
-            all_seq1_structures[key_name] = {
-                "x": xlist,
-                "y": ylist,
-                "z": zlist,
-            }
-    # read seq2 coord files.
-    for i in range(1, 6):
-        key_name = "7q4mrank" + str(i)
-        filename = key_name + ".txt"
-        with open(
-            location_of_coordinate_files + "/" + filename, encoding="utf8"
-        ) as alpha_carbon_coordinate_file:
-            xlist = []
-            ylist = []
-            zlist = []
-            for line in alpha_carbon_coordinate_file:
-                split_line = line.split()
-                xlist.append(float(split_line[0]))
-                ylist.append(float(split_line[1]))
-                zlist.append(float(split_line[2]))
-            all_seq2_structures[key_name] = {
-                "x": xlist,
-                "y": ylist,
-                "z": zlist,
-            }
-    # read seq1 gold standard coord file.
-    with open(
-        "coordinate files/4x96goldstandard.txt", encoding="utf8"
-    ) as alpha_carbon_coordinate_file:
-        xlist = []
-        ylist = []
-        zlist = []
-        for line in alpha_carbon_coordinate_file:
-            split_line = line.split()
-            xlist.append(float(split_line[0]))
-            ylist.append(float(split_line[1]))
-            zlist.append(float(split_line[2]))
-        all_seq1_structures["4x96goldstandard"] = {
-            "x": xlist,
-            "y": ylist,
-            "z": zlist,
-        }
-    # read seq2 gold standard coord file.
-    with open(
-        "coordinate files/7q4mgoldstandard.txt", encoding="utf8"
-    ) as alpha_carbon_coordinate_file:
-        xlist = []
-        ylist = []
-        zlist = []
-        for line in alpha_carbon_coordinate_file:
-            split_line = line.split()
-            xlist.append(float(split_line[0]))
-            ylist.append(float(split_line[1]))
-            zlist.append(float(split_line[2]))
-        all_seq2_structures["7q4mgoldstandard"] = {
-            "x": xlist,
-            "y": ylist,
-            "z": zlist,
-        }
-    return (all_seq1_structures, all_seq2_structures)
 
 
 def main():
@@ -143,9 +53,9 @@ def main():
     print("================================================")
     print()
 
-    # this command reads the files and gives us our dictionaries of alpha carbon coordinates.
-    all_seq1_structures, all_seq2_structures = read_files()
-
+    # produce a dictionary of alpha carbon coordinates from AlphaFold's structure predictions.
+    alpha_carbon_coords_dictionary = set_up_coord_files.execute("pdb_files", "1ab1")
+    
     # coordinates_dict_1 and 2 are both dictionaries that look like
     # { "x": [1,2,3], "y": [1,2,3], "z": [1,2,3] }
     # now it's time to get to work comparing everything to everything.
