@@ -29,10 +29,10 @@ def get_alpha_carbons():
     pdb_parser = PDBParser()
     pdb_io = PDBIO()
     protein_1ab1 = pdb_parser.get_structure(
-        id="bruh", file="pdb files and processed pdb files/1aq7.pdb"
+        id="bruh", file="test_3aafb_unrelaxed_rank_2_model_3.pdb"
     )
     pdb_io.set_structure(protein_1ab1)
-    pdb_io.save("pdb files and processed pdb files/1aq7_out.pdb", AlphaCarbonSelect())
+    pdb_io.save("test_3aafb_unrelaxed_rank_2_model_3_out.pdb", AlphaCarbonSelect())
     pass
 
 
