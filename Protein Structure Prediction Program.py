@@ -27,6 +27,8 @@ overview:
 notes that go a bit further in depth
 i download the pdb file for the gold standard from the internet, generate an alpha carbon text file using parse_pdb, then use awk on it to generate a text file containing only the coords of the alpha carbons.
 i put a sequence into colabfold. they give me a folder with 5 structure predictions. these are PDB files. i take these pdb files and generate alpha carbon text files using parse_pdb, then awk them to generate a text file containing only the coords of the CA atoms
-i'll ask the user for the directory of the alphafold predictions 
+i'll ask the user for the directory of the alphafold predictions.
+i need to learn how to do async shit in python 
+
 
 """
