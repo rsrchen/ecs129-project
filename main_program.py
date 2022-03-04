@@ -47,14 +47,6 @@ def main(
     4 decimal places. Root-mean-square deviations that are very low will be rounded to zero.
 
     """
-    print()
-    print("================================================")
-    print("ECS 129 Protein Structure Comparison Program")
-    print(
-        "This program calculates and outputs root-mean-square deviations between two protein structures. Check the main() docstring for more details."
-    )
-    print("================================================")
-    print()
 
     # loading bar for fun. it's entirely unnecessary. haha.
     # print("Working...")
@@ -80,12 +72,7 @@ def main(
     for key_1, coordinates_array_1 in alpha_carbon_coords_dictionary.items():
         for key_2, coordinates_array_2 in alpha_carbon_coords_dictionary.items():
             shifted1, shifted2 = shift_to_barycenters.shift(
-                list(zip(*coordinates_array_1))[0],
-                list(zip(*coordinates_array_1))[1],
-                list(zip(*coordinates_array_1))[2],
-                list(zip(*coordinates_array_2))[0],
-                list(zip(*coordinates_array_2))[1],
-                list(zip(*coordinates_array_2))[2],
+                coordinates_array_1, coordinates_array_2
             )
             max_eigenvalue = eigenvalues_of_vector_F.find(shifted1, shifted2)
             if not max_eigenvalue:

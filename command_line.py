@@ -152,7 +152,7 @@ def main():
     return (pdb_id, colabfold_jobname_hash, chains, predictions_dir, solved_dir)
 
 
-go: Literal[0] | tuple(str, str, str, str, str) = main()
+go: Literal[0] | tuple[str, str, str, str, str] = main()
 
 # if main goes off without a hitch
 if go:
