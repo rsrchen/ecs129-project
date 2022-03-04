@@ -33,4 +33,7 @@ def main(
     alpha_carbons_dictionary[pdb_id + "_goldstandard"] = parse_pdb.get_alpha_carbons(
         solved_structure_pdb_file[0], pdb_id, chains, use_chains=True
     )
+    # this will probably only happen if the chain is incorrect.
+    if len(alpha_carbons_dictionary[pdb_id + "_goldstandard"]) == 0:
+        return 0
     return alpha_carbons_dictionary

@@ -14,7 +14,12 @@ def find(
         for j in range(0, 3):
             sum_for_r_i_j = 0
             for n in range(len(x_tilde)):
-                sum_for_r_i_j += x_tilde[n][i] * y_tilde[n][j]
+                try:
+                    sum_for_r_i_j += x_tilde[n][i] * y_tilde[n][j]
+                except IndexError:
+                    print(
+                        "Python reported an IndexError when the program attempted to generate matrix R. Make sure your predicted structures and solved structure are of the same length."
+                    )
             matrix_r[i, j] = sum_for_r_i_j
 
     # plug the corresponding values into the matrix F

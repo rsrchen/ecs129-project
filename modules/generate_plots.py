@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from textwrap import wrap
 
 
-def generate(dictionary_of_RMSDs: dict[str, float]):
+def generate(dictionary_of_RMSDs: dict[str, float], pdb_id: str, chains: str):
     """
     Given a dictionary of RMSDs comparing AlphaFold predictions to
     experimentally-determined structures, generate 1 color-coded heatmap
@@ -45,7 +45,7 @@ def generate(dictionary_of_RMSDs: dict[str, float]):
     ax[0].set_title(
         "\n".join(
             wrap(
-                "A Comparison Heatmap Between the Root-Mean-Square Deviations Of AlphaFold Structure Predictions and the Experimentally Determined Protein Structure",
+                f"Comparison Heatmap of Root-Mean-Square Deviation Between All AlphaFold Structure Predictions and the Solved Structure of {pdb_id.upper()} Chain(s) {chains}",
                 70,
             )
         )
@@ -67,7 +67,7 @@ def generate(dictionary_of_RMSDs: dict[str, float]):
     ax[1].set_title(
         "\n".join(
             wrap(
-                "Root-Mean-Square Deviation Comparisons Between Each AlphaFold Prediction and the Experimentally Determined Structure Only",
+                f"Root-Mean-Square Deviations Between Each Individual AlphaFold Prediction and the Solved Structure Only for {pdb_id.upper()} Chain(s) {chains}",
                 70,
             )
         )

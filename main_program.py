@@ -57,9 +57,9 @@ def main(
     print()
 
     # loading bar for fun. it's entirely unnecessary. haha.
-    print("Working...")
-    for i in tqdm(range(randint(90, 110))):
-        sleep(0.005)
+    # print("Working...")
+    # for i in tqdm(range(randint(90, 110))):
+    #     sleep(0.005)
 
     # produce a dictionary of alpha carbon coordinates from AlphaFold's structure predictions.
     # contains at least 5 entries. probably more. i need to figure out how to separate them based on sequence
@@ -67,8 +67,9 @@ def main(
     alpha_carbon_coords_dictionary = set_up_coord_files.main(
         pdb_id, colabfold_hash, chains, predictions_dir, solved_dir
     )
-
-    pass
+    if not alpha_carbon_coords_dictionary:
+        print("The length of the sequence corresponding to your solved structure is 0. Make sure you've selected the correct chain.")
+        return 0
 
     # the alpha carbon coords dictionary looks like this:
     # {"rank1": [[x1,y1,z1],[x2,y2,z2], ...], "rank2": [[x1,y1,z1],[x2,y2,z2], ...], ...}
@@ -94,4 +95,5 @@ def main(
     for name, rmsd in rmsd_catalog.items():
         print(name, "RMSD:", rmsd)
 
-    generate_plots.generate(rmsd_catalog)
+    generate_plots.generate(rmsd_catalog, pdb_id, chains)
+    return 1
