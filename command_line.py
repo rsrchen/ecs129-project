@@ -117,10 +117,10 @@ def main():
         print("No argument provided for -c; default chain A will be used.")
 
     if not pdb_id:
-        print("Error: PDB ID cannot be empty.")
+        print("Error: PDB ID cannot be empty. Use the -p flag to signify PDB ID.")
         return 0
     if not colabfold_jobname_hash:
-        print("Error: ColabFold structure name hash cannot be empty.")
+        print("Error: ColabFold structure name hash cannot be empty. Use the -h flag to signify hash.")
         return 0
     some_path = Path(predictions_dir)
     if not some_path.exists():

@@ -86,6 +86,8 @@ def main(
                 list(zip(*coordinates_array_2))[2],
             )
             max_eigenvalue = eigenvalues_of_vector_F.find(shifted1, shifted2)
+            if not max_eigenvalue:
+                return 0
             rmsd = round(calc_rmsd.calc(shifted1, shifted2, max_eigenvalue), 4)
             rmsd_catalog[key_1 + " and " + key_2] = rmsd
 

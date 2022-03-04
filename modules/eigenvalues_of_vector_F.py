@@ -20,6 +20,7 @@ def find(
                     print(
                         "Python reported an IndexError when the program attempted to generate matrix R. Make sure your predicted structures and solved structure are of the same length."
                     )
+                    return 0
             matrix_r[i, j] = sum_for_r_i_j
 
     # plug the corresponding values into the matrix F
