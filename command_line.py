@@ -1,4 +1,5 @@
 import sys
+from typing import Literal
 import regex
 from pathlib import Path
 import main_program
@@ -120,7 +121,9 @@ def main():
         print("Error: PDB ID cannot be empty. Use the -p flag to signify PDB ID.")
         return 0
     if not colabfold_jobname_hash:
-        print("Error: ColabFold structure name hash cannot be empty. Use the -h flag to signify hash.")
+        print(
+            "Error: ColabFold structure name hash cannot be empty. Use the -h flag to signify hash."
+        )
         return 0
     some_path = Path(predictions_dir)
     if not some_path.exists():
@@ -149,7 +152,7 @@ def main():
     return (pdb_id, colabfold_jobname_hash, chains, predictions_dir, solved_dir)
 
 
-go = main()
+go: Literal[0] | tuple(str, str, str, str, str) = main()
 
 # if main goes off without a hitch
 if go:

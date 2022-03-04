@@ -68,7 +68,9 @@ def main(
         pdb_id, colabfold_hash, chains, predictions_dir, solved_dir
     )
     if not alpha_carbon_coords_dictionary:
-        print("The length of the sequence corresponding to your solved structure is 0. Make sure you've selected the correct chain.")
+        print(
+            "The length of the sequence corresponding to your solved structure is 0. Make sure you've selected the correct chain."
+        )
         return 0
 
     # the alpha carbon coords dictionary looks like this:
