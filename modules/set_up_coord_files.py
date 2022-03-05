@@ -1,4 +1,5 @@
 from pathlib import Path
+import numpy as np
 
 # import awk_but_not_really
 from modules import parse_pdb
@@ -36,4 +37,9 @@ def main(
     # this will probably only happen if the chain is incorrect.
     if len(alpha_carbons_dictionary[pdb_id + "_goldstandard"]) == 0:
         return 0
+    # this will only happen if the structure has missing residues.
+    if len(alpha_carbons_dictionary[pdb_id + "_goldstandard"]) and np.all(
+        alpha_carbons_dictionary[pdb_id + "_goldstandard"][0] == -1
+    ):
+        return -1
     return alpha_carbons_dictionary

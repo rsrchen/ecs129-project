@@ -1,7 +1,8 @@
 from pathlib import Path
 from unicodedata import name
 from Bio.PDB import PDBParser
-from Bio.PDB import PDBIO
+from Bio.PDB import parse_pdb_header
+# from Bio.PDB import PDBIO
 
 # from Bio.SeqUtils import seq1
 from Bio.PDB.PDBIO import Select
@@ -48,6 +49,9 @@ def get_alpha_carbons(
             for atom in protein_atoms
             if atom.name == "CA" and atom.element == "C"
         ]
+    header = parse_pdb_header(filename)
+    if header['has_missing_residues']:
+        alpha_carbon_coords = [-1]
     return alpha_carbon_coords
     # pdb_io.set_structure(protein)
 

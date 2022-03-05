@@ -52,10 +52,10 @@ def generate(dictionary_of_RMSDs: dict[str, float], pdb_id: str, chains: str):
     )
     ax[0].set_xticks(range(array_side_size), labels=structure_names_list)
     ax[0].set_yticks(range(array_side_size), labels=structure_names_list)
-    ax[0].set_xlabel(
-        "Each tick is labeled with the name we have given the structure, \nwhich consists of its corresponding sequence (e.g. seq1) and \nits rank, as ranked by AlphaFold (e.g. rank3). The experimentally \ndetermined structure is given the name 'goldstandard.' ",
-        labelpad=10,
-    )
+    # ax[0].set_xlabel(
+    #     "Each tick is labeled with the name we have given the structure, \nwhich consists of its corresponding sequence (e.g. seq1) and \nits rank, as ranked by AlphaFold (e.g. rank3). The experimentally \ndetermined structure is given the name 'goldstandard.' ",
+    #     labelpad=10,
+    # )
     plt.setp(ax[0].get_xticklabels(), rotation=20, ha="right", rotation_mode="anchor")
 
     for i in range(array_side_size):

@@ -64,6 +64,11 @@ def main(
             "Error: the length of the sequence corresponding to your solved structure is 0. Make sure you've selected the correct chain."
         )
         return 0
+    if alpha_carbon_coords_dictionary == -1:
+        print(
+            "Error: your solved structure PDB file has missing residues. This means your structures cannot be compared using RMSD."
+        )
+        return 0
 
     # the alpha carbon coords dictionary looks like this:
     # {"rank1": [[x1,y1,z1],[x2,y2,z2], ...], "rank2": [[x1,y1,z1],[x2,y2,z2], ...], ...}
