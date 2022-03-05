@@ -8,7 +8,7 @@ So go to cmd, or PowerShell, or bash, or zsh, or Apple Terminal and get to typin
 
 ## Flags and Arguments
 - -a, the directory that contains AlphaFold's predictions in the form of PDB files. By default, it is `./alphafold_predictions`.
-- -c, which protein chains of the solved structure you want to compare the predictions to. By default, it's just the A chain, `A`. 
+- -c, which protein chains of the solved structure you want to compare the predictions to. By default, it's just the A chain, `A`. You can input `AB` or `BA` if you want the program to read chains A and B of the solved structure, `ABCD` or `CDBA` or `AACBDDBCBD` if you want it to look at chains A, B, C, and D, you get the picture. Note that if you write `ABC` and the structure only contains two chains named A and B, everything will still work just fine! 
 - -h, the hash value assigned to your AlphaFold predictions by ColabFold. It's a 5 character value that consists of letters and numbers. ColabFold gives you one every time you use it to make structure predictions. You need to enter this; else the program won't run.
 - -p, the PDB ID of your solved structure. You need to enter this; else the program won't run.
 - -s, the directory that contains the solved structures. These are the experimentally determined structures, solved using x-ray crystallography or cryo-EM or something along those lines. By default, it is `./solved_structures`.

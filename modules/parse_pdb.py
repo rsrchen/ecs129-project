@@ -40,13 +40,13 @@ def get_alpha_carbons(
         [
             alpha_carbon_coords.append(atom.coord)
             for atom in protein_atoms
-            if atom.name == "CA" and atom.get_full_id()[2] in chains
+            if atom.name == "CA" and atom.element == "C" and atom.get_full_id()[2] in chains
         ]
     else:
         [
             alpha_carbon_coords.append(atom.coord)
             for atom in protein_atoms
-            if atom.name == "CA"
+            if atom.name == "CA" and atom.element == "C"
         ]
     return alpha_carbon_coords
     # pdb_io.set_structure(protein)

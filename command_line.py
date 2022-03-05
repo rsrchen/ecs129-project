@@ -33,6 +33,7 @@ overview:
 
 
 def main():
+    print("\nThe (New and Improved) ECS 129 Protein Structure Comparison Program. © 2022 rsrchen (github.com/rsrchen)\n")
     colabfold_jobname_hash = None
     pdb_id = None
     chains = "A"
@@ -156,7 +157,7 @@ go: Literal[0] | tuple[str, str, str, str, str] = main()
 
 # if main goes off without a hitch
 if go:
-    main_program.main(go[0], go[1], go[2], go[3], go[4]) 
+    main_program.main(go[0], go[1], go[2], go[3], go[4])
     pass
 else:
     print("Program execution aborted.")

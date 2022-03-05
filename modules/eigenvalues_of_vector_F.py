@@ -18,7 +18,7 @@ def find(
                     sum_for_r_i_j += x_tilde[n][i] * y_tilde[n][j]
                 except IndexError:
                     print(
-                        "Python reported an IndexError when the program attempted to generate matrix R. Make sure your predicted structures and solved structure are of the same length."
+                        "Python reported an IndexError when the program attempted to generate matrix R. Make sure your predicted structures and solved structure are of the same length, and make sure you have input chain(s) that are valid and correct."
                     )
                     return 0
             matrix_r[i, j] = sum_for_r_i_j

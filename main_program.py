@@ -61,7 +61,7 @@ def main(
     )
     if not alpha_carbon_coords_dictionary:
         print(
-            "The length of the sequence corresponding to your solved structure is 0. Make sure you've selected the correct chain."
+            "Error: the length of the sequence corresponding to your solved structure is 0. Make sure you've selected the correct chain."
         )
         return 0
 
