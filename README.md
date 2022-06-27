@@ -13,7 +13,7 @@
 This program takes a set of multiple protein structures, where each protein structure is given by a text file containing the (x, y, z) coordinates of the protein's alpha carbons, and compares all of the structures to one another by calculating the root-mean-square deviation, or RMSD, between pairs of structures. Pretty cool.
 
 ## More what
-The program is hard-coded to expect 5 protein structure predictions (i.e. from AlphaFold) and one experimentally determined structure (i.e. as empirically derived from crystallography or cryo-EM). The program also shows you a heatmap generated from the RMSDs of all comparisons of all protein structures and serves you a bar graph giving you a closer look at how the protein structure predictions stack up against one another when compared to the experimentally-determined structure. 
+The program functions via CLI. It takes five protein structure predictions (i.e. from AlphaFold) and one experimentally determined structure (i.e. as empirically derived from crystallography or cryo-EM). The program also shows you a heatmap generated from the RMSDs of all comparisons of all protein structures and serves you a bar graph giving you a closer look at how the protein structure predictions stack up against one another when compared to the experimentally-determined structure. 
 
 ## How
 We use the quaternion-based RMSD algorithm provided by Coutsias, Seok, and Dill in [this paper](https://www.cs.ucdavis.edu/~koehl/Teaching/ECS129/Projects/Coutsias_2004.pdf). We also graciously use the open-source community packages [numpy](https://numpy.org/) and [matplotlib](https://matplotlib.org/). Thanks. We love you.
@@ -27,4 +27,4 @@ The science around protein structure prediction is, and has for decades been, ab
 - **Daniel Cardenas** - programming, report writing
 
 ## Report
-You may have noticed credit for "report writing" in the previous section. We wrote a report on this program for ECS 129 - Computational Structural Bioinformatics. Took the class winter quarter 2022 with [Professor Patrice Koehl](https://www.cs.ucdavis.edu/~koehl/index.html), who I think is a great person and a very passionate instructor. I'll add a link to [the report](http://www.example.com) as soon as possible. 
+You may have noticed credit for "report writing" in the previous section. We wrote a report on this program for ECS 129 - Computational Structural Bioinformatics. Took the class winter quarter 2022 with [Professor Patrice Koehl](https://www.cs.ucdavis.edu/~koehl/index.html), who I think is a great person and a very passionate instructor. Here's a link to [the original report](https://drive.google.com/file/d/1XDiJW5NY0E51er4A13-ZF6D0C4YYL105/view?usp=sharing). 
