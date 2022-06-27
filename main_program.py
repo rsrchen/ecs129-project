@@ -1,103 +1,22 @@
-from modules import shift_to_barycenters
+from time import sleep
+from modules import set_up_coord_files, shift_to_barycenters
 from modules import eigenvalues_of_vector_F
 from modules import calc_rmsd
 from modules import generate_plots
+from modules import set_up_coord_files
+from tqdm import tqdm
+from random import randint
+
+"""
+TODO:
+- make it runnable w/ command line arguments. 4 letter code of protein, directory containing your pdb files, directory containing your coordinate files, etc. 
+- make it accept 1 sequence. less hard-coded, more free. have it accept 1 sequence. or 4. or 12. not always 2 only. 
+"""
 
 
-def read_files():
-    """
-    Read the files in the folder titled "coordinate files." The filenames are
-    predetermined.
-
-    Return: a tuple with length 2 containing all_seq1_structures and all_seq2_structures.
-    """
-    all_seq1_structures: dict[str, dict[str, list[float]]] = {}
-    all_seq2_structures: dict[str, dict[str, list[float]]] = {}
-    # the plan is to loop through the lines and stop at each whitespace encounter,
-    # take the first thing, put it into an x list, take the second thing, y list,
-    # third thing z list. each entry in the dictionary all_seq1_structures will
-    # contain a dictionary itself. that internal dictionary will
-    # contain x: [list of x's], y: [list of y's] you get the point
-
-    # read seq1 coord files.
-    location_of_coordinate_files = "coordinate files"
-    for i in range(1, 6):
-        key_name = "seq1rank" + str(i)
-        filename = key_name + ".txt"
-        with open(
-            location_of_coordinate_files + "/" + filename, encoding="utf8"
-        ) as alpha_carbon_coordinate_file:
-            xlist = []
-            ylist = []
-            zlist = []
-            for line in alpha_carbon_coordinate_file:
-                split_line = line.split()
-                xlist.append(float(split_line[0]))
-                ylist.append(float(split_line[1]))
-                zlist.append(float(split_line[2]))
-            all_seq1_structures[key_name] = {
-                "x": xlist,
-                "y": ylist,
-                "z": zlist,
-            }
-    # read seq2 coord files.
-    for i in range(1, 6):
-        key_name = "seq2rank" + str(i)
-        filename = key_name + ".txt"
-        with open(
-            location_of_coordinate_files + "/" + filename, encoding="utf8"
-        ) as alpha_carbon_coordinate_file:
-            xlist = []
-            ylist = []
-            zlist = []
-            for line in alpha_carbon_coordinate_file:
-                split_line = line.split()
-                xlist.append(float(split_line[0]))
-                ylist.append(float(split_line[1]))
-                zlist.append(float(split_line[2]))
-            all_seq2_structures[key_name] = {
-                "x": xlist,
-                "y": ylist,
-                "z": zlist,
-            }
-    # read seq1 gold standard coord file.
-    with open(
-        "coordinate files/seq1goldstandard.txt", encoding="utf8"
-    ) as alpha_carbon_coordinate_file:
-        xlist = []
-        ylist = []
-        zlist = []
-        for line in alpha_carbon_coordinate_file:
-            split_line = line.split()
-            xlist.append(float(split_line[0]))
-            ylist.append(float(split_line[1]))
-            zlist.append(float(split_line[2]))
-        all_seq1_structures["seq1goldstandard"] = {
-            "x": xlist,
-            "y": ylist,
-            "z": zlist,
-        }
-    # read seq2 gold standard coord file.
-    with open(
-        "coordinate files/seq2goldstandard.txt", encoding="utf8"
-    ) as alpha_carbon_coordinate_file:
-        xlist = []
-        ylist = []
-        zlist = []
-        for line in alpha_carbon_coordinate_file:
-            split_line = line.split()
-            xlist.append(float(split_line[0]))
-            ylist.append(float(split_line[1]))
-            zlist.append(float(split_line[2]))
-        all_seq2_structures["seq2goldstandard"] = {
-            "x": xlist,
-            "y": ylist,
-            "z": zlist,
-        }
-    return (all_seq1_structures, all_seq2_structures)
-
-
-def main():
+def main(
+    pdb_id: str, colabfold_hash: str, chains: str, predictions_dir: str, solved_dir: str
+):
     """
     Determine the root-mean-square deviation between AlphaFold's protein structure predictions and
     the true protein structure as determined by crystallography/other empirical experimental
@@ -128,62 +47,49 @@ def main():
     4 decimal places. Root-mean-square deviations that are very low will be rounded to zero.
 
     """
-    print()
-    print("================================================")
-    print("ECS 129 Protein Structure Comparison Program")
-    print(
-        "This program calculates and outputs root-mean-square deviations between two protein structures. Check the main() docstring for more details."
+
+    # loading bar for fun. it's entirely unnecessary. haha.
+    # print("Working...")
+    # for i in tqdm(range(randint(90, 110))):
+    #     sleep(0.005)
+
+    # produce a dictionary of alpha carbon coordinates from AlphaFold's structure predictions.
+    # contains at least 5 entries. probably more. i need to figure out how to separate them based on sequence
+    # i'll do that later
+    alpha_carbon_coords_dictionary = set_up_coord_files.main(
+        pdb_id, colabfold_hash, chains, predictions_dir, solved_dir
     )
-    print("================================================")
-    print()
+    if not alpha_carbon_coords_dictionary:
+        print(
+            "Error: the length of the sequence corresponding to your solved structure is 0. Make sure you've selected the correct chain."
+        )
+        return 0
+    if alpha_carbon_coords_dictionary == -1:
+        print(
+            "Error: your solved structure PDB file has missing residues. This means your structures cannot be compared using RMSD."
+        )
+        return 0
 
-    # this command reads the files and gives us our dictionaries of alpha carbon coordinates.
-    all_seq1_structures, all_seq2_structures = read_files()
-
-    # coordinates_dict_1 and 2 are both dictionaries that look like
-    # { "x": [1,2,3], "y": [1,2,3], "z": [1,2,3] }
-    # now it's time to get to work comparing everything to everything.
-    # sequence 1 comparisons first.
-    seq1_rmsd_catalog = {}
-    for key_1, coordinates_dict_1 in all_seq1_structures.items():
-        for key_2, coordinates_dict_2 in all_seq1_structures.items():
+    # the alpha carbon coords dictionary looks like this:
+    # {"rank1": [[x1,y1,z1],[x2,y2,z2], ...], "rank2": [[x1,y1,z1],[x2,y2,z2], ...], ...}
+    #
+    rmsd_catalog = {}
+    for key_1, coordinates_array_1 in alpha_carbon_coords_dictionary.items():
+        for key_2, coordinates_array_2 in alpha_carbon_coords_dictionary.items():
             shifted1, shifted2 = shift_to_barycenters.shift(
-                coordinates_dict_1["x"],
-                coordinates_dict_1["y"],
-                coordinates_dict_1["z"],
-                coordinates_dict_2["x"],
-                coordinates_dict_2["y"],
-                coordinates_dict_2["z"],
+                coordinates_array_1, coordinates_array_2
             )
             max_eigenvalue = eigenvalues_of_vector_F.find(shifted1, shifted2)
+            if not max_eigenvalue:
+                return 0
             rmsd = round(calc_rmsd.calc(shifted1, shifted2, max_eigenvalue), 4)
-            seq1_rmsd_catalog[key_1 + " and " + key_2] = rmsd
+            rmsd_catalog[key_1 + " and " + key_2] = rmsd
 
     # then it's time for sequence 2 comparisons.
-    seq2_rmsd_catalog = {}
-    for key_1, coordinates_dict_1 in all_seq2_structures.items():
-        for key_2, coordinates_dict_2 in all_seq2_structures.items():
-            shifted1, shifted2 = shift_to_barycenters.shift(
-                coordinates_dict_1["x"],
-                coordinates_dict_1["y"],
-                coordinates_dict_1["z"],
-                coordinates_dict_2["x"],
-                coordinates_dict_2["y"],
-                coordinates_dict_2["z"],
-            )
-            max_eigenvalue = eigenvalues_of_vector_F.find(shifted1, shifted2)
-            rmsd = round(calc_rmsd.calc(shifted1, shifted2, max_eigenvalue), 4)
-            seq2_rmsd_catalog[key_1 + " and " + key_2] = rmsd
 
     # print the results of our comparisons. the RMSDs.
-    for name, rmsd in seq1_rmsd_catalog.items():
+    for name, rmsd in rmsd_catalog.items():
         print(name, "RMSD:", rmsd)
 
-    for name, rmsd in seq2_rmsd_catalog.items():
-        print(name, "RMSD:", rmsd)
-
-    generate_plots.generate(seq1_rmsd_catalog)
-    generate_plots.generate(seq2_rmsd_catalog)
-
-
-main()
+    generate_plots.generate(rmsd_catalog, pdb_id, chains)
+    return 1

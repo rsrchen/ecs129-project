@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from textwrap import wrap
 
 
-def generate(dictionary_of_RMSDs: dict[str, float]):
+def generate(dictionary_of_RMSDs: dict[str, float], pdb_id: str, chains: str):
     """
     Given a dictionary of RMSDs comparing AlphaFold predictions to
     experimentally-determined structures, generate 1 color-coded heatmap
@@ -45,17 +45,17 @@ def generate(dictionary_of_RMSDs: dict[str, float]):
     ax[0].set_title(
         "\n".join(
             wrap(
-                "A Comparison Heatmap Between the Root-Mean-Square Deviations Of AlphaFold Structure Predictions and the Experimentally Determined Protein Structure",
+                f"Comparison Heatmap of Root-Mean-Square Deviation Between All AlphaFold Structure Predictions and the Solved Structure of {pdb_id.upper()} Chain(s) {chains}",
                 70,
             )
         )
     )
     ax[0].set_xticks(range(array_side_size), labels=structure_names_list)
     ax[0].set_yticks(range(array_side_size), labels=structure_names_list)
-    ax[0].set_xlabel(
-        "Each tick is labeled with the name we have given the structure, \nwhich consists of its corresponding sequence (e.g. seq1) and \nits rank, as ranked by AlphaFold (e.g. rank3). The experimentally \ndetermined structure is given the name 'goldstandard.' ",
-        labelpad=10,
-    )
+    # ax[0].set_xlabel(
+    #     "Each tick is labeled with the name we have given the structure, \nwhich consists of its corresponding sequence (e.g. seq1) and \nits rank, as ranked by AlphaFold (e.g. rank3). The experimentally \ndetermined structure is given the name 'goldstandard.' ",
+    #     labelpad=10,
+    # )
     plt.setp(ax[0].get_xticklabels(), rotation=20, ha="right", rotation_mode="anchor")
 
     for i in range(array_side_size):
@@ -67,7 +67,7 @@ def generate(dictionary_of_RMSDs: dict[str, float]):
     ax[1].set_title(
         "\n".join(
             wrap(
-                "Root-Mean-Square Deviation Comparisons Between Each AlphaFold Prediction and the Experimentally Determined Structure Only",
+                f"Root-Mean-Square Deviations Between Each Individual AlphaFold Prediction and the Solved Structure Only for {pdb_id.upper()} Chain(s) {chains}",
                 70,
             )
         )
