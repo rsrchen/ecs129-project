@@ -1,11 +1,11 @@
-from time import sleep
+# from time import sleep
 from modules import set_up_coord_files, shift_to_barycenters
 from modules import eigenvalues_of_vector_F
 from modules import calc_rmsd
 from modules import generate_plots
 from modules import set_up_coord_files
-from tqdm import tqdm
-from random import randint
+# from tqdm import tqdm
+# from random import randint
 
 
 def main(
