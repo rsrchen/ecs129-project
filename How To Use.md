@@ -31,7 +31,7 @@ The program will run and print some comparison stats to the shell, as well as di
 Here's the output.
 
 ```
-The (New and Improved) ECS 129 Protein Structure Comparison Program. © 2022 rsrchen (github.com/rsrchen)
+The (New and Improved) ECS 129 Protein Structure Comparison Program. © 2022-20XX rsrchen (github.com/rsrchen)
 
 No argument provided for -a; default predicted structures directory (./structures/alphafold_predictions) will be used.
 No argument provided for -s; default solved structures directory (./structures/solved_structures) will be used.
@@ -89,7 +89,7 @@ A few things are different from the previous example.
 Here's the output.
 
 ```
-The (New and Improved) ECS 129 Protein Structure Comparison Program. © 2022 rsrchen (github.com/rsrchen)
+The (New and Improved) ECS 129 Protein Structure Comparison Program. © 2022-20XX rsrchen (github.com/rsrchen)
 
 No argument provided for -a; default predicted structures directory (./structures/alphafold_predictions) will be used.
 No argument provided for -s; default solved structures directory (./structures/solved_structures) will be used.

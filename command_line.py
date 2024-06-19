@@ -33,7 +33,7 @@ overview:
 
 
 def main():
-    print("\nThe (New and Improved) ECS 129 Protein Structure Comparison Program. © 2022 rsrchen (github.com/rsrchen)\n")
+    print("\nThe (New and Improved) ECS 129 Protein Structure Comparison Program. © 2022-20XX rsrchen (github.com/rsrchen)\n")
     colabfold_jobname_hash = None
     pdb_id = None
     chains_prediction = "A"
