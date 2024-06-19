@@ -4,11 +4,11 @@ Open up your shell of choice and follow the instructions below.
 ## the main program (`command_line.py`)
 
 ### Flags and Arguments
-- `-a`, the directory that contains AlphaFold's predictions in the form of PDB files. By default, it is `./alphafold_predictions`.
+- `-a`, the directory that contains AlphaFold's predictions in the form of PDB files. By default, it is `./structures/alphafold_predictions`.
 - `-c`, which protein chains of the solved structure you want to compare the predictions to. By default, it's just chain A, `A`. You can input `AB` if you want the program to read chains A and B of the solved structure, or `ABCD` for chains A, B, C, and D. 
 - `-h`, **required**, the hash value assigned to your AlphaFold predictions by ColabFold.
 - `-p`, **required**, the PDB ID of your solved structure.
-- `-s`, the directory that contains the solved structures. These are the experimentally determined structures, solved using x-ray crystallography or cryo-EM or similar methods. By default, it is `./solved_structures`.
+- `-s`, the directory that contains the solved structures. These are the experimentally determined structures, solved using x-ray crystallography or cryo-EM or similar methods. By default, it is `./structures/solved_structures`.
 
 ### Example usage
 I type this command into my shell:
@@ -30,8 +30,8 @@ Here's the output.
 ```
 The (New and Improved) ECS 129 Protein Structure Comparison Program. © 2022 rsrchen (github.com/rsrchen)
 
-No argument provided for -a; default predicted structures directory (./alphafold_predictions) will be used.
-No argument provided for -s; default solved structures directory (./solved_structures) will be used.
+No argument provided for -a; default predicted structures directory (./structures/alphafold_predictions) will be used.
+No argument provided for -s; default solved structures directory (./structures/solved_structures) will be used.
 No argument provided for -c; default chain A will be used.
 1grq_rank1 and 1grq_rank1 RMSD: 0.0099
 1grq_rank1 and 1grq_rank2 RMSD: 0.188

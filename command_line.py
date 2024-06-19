@@ -8,8 +8,8 @@ import main_program
 so. how's it gonna be?
 
 default settings:
-directory containing alphafold prediction PDB files is ./alphafold_predictions
-directory containing true structure PDB files is ./solved_structures
+directory containing alphafold prediction PDB files is ./structures/alphafold_predictions
+directory containing true structure PDB files is ./structures/solved_structures
 chain A
 require colabfold hash, exit if it's not given. needs to be valid; it'll be checked.
 require 4 character PDB ID, exit if it's not given. needs to be valid. it'll be checked.
@@ -38,8 +38,8 @@ def main():
     pdb_id = None
     chains_prediction = "A"
     chains_solved = "A"
-    predictions_dir = "alphafold_predictions"
-    solved_dir = "solved_structures"
+    predictions_dir = "structures/alphafold_predictions"
+    solved_dir = "structures/solved_structures"
     strung_out = " "
     for x in sys.argv:
         strung_out += x + " "
@@ -62,11 +62,11 @@ def main():
                 return 0
         except IndexError:
             print(
-                "No argument provided for -a; default predicted structures directory (./alphafold_predictions) will be used."
+                "No argument provided for -a; default predicted structures directory (./structures/alphafold_predictions) will be used."
             )
     else:
         print(
-            "No argument provided for -a; default predicted structures directory (./alphafold_predictions) will be used."
+            "No argument provided for -a; default predicted structures directory (./structures/alphafold_predictions) will be used."
         )
 
     # -s is for solved structures directory
@@ -78,11 +78,11 @@ def main():
                 return 0
         except IndexError:
             print(
-                "No argument provided for -s; default solved structures directory (./solved_structures) will be used."
+                "No argument provided for -s; default solved structures directory (./structures/solved_structures) will be used."
             )
     else:
         print(
-            "No argument provided for -s; default solved structures directory (./solved_structures) will be used."
+            "No argument provided for -s; default solved structures directory (./structures/solved_structures) will be used."
         )
 
     # -p is the pdb id
