@@ -3,6 +3,8 @@ Open up your shell of choice and follow the instructions below.
 
 ## the main program (`command_line.py`)
 
+This is the entry point of the main program. Use the CLI (command-line interface) to interact with the program and calculate the root-mean-square deviation between alpha carbons in your structures of interest. 
+
 ### Flags and Arguments
 - `-a`, the directory that contains AlphaFold's predictions in the form of PDB files. By default, it is `./structures/alphafold_predictions`.
 - `-c`, which protein chains of the solved structure you want to compare the predictions to. By default, it's just chain A, `A`. You can input `AB` if you want the program to read chains A and B of the solved structure, or `ABCD` for chains A, B, C, and D. 
@@ -75,8 +77,10 @@ No argument provided for -c; default chain A will be used.
 
 ## pdb length finder
 
+This is an additional utility you can use to find the length of a particular protein sequence.
+
 ### Flags and Arguments
-- `-n`, the name of the file.
+- `-n`, **required**, the name of the file.
 - `-c`, which protein chains you want to measure the length of.
 
 ### Example usage
