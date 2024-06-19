@@ -10,7 +10,7 @@
       "request": "launch",
       "program": "${workspaceFolder}/command_line.py",
       "console": "integratedTerminal",
-      "args": ["-p", "1a3q", "-h", "9a9da", "-c", "b"]
+      "args": ["-p", "1a3q", "-h", "9a9da", "-c", "b", "-C", "a"]
     }
   ]
 }

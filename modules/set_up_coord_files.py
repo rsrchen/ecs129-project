@@ -34,7 +34,7 @@ def main(
     for file in alphafold_prediction_pdb_files:
         alpha_carbons_dictionary[
             pdb_id + "_rank" + str(rank)
-        ] = parse_pdb.get_alpha_carbons(file, pdb_id, chains_prediction, use_chains=False)
+        ] = parse_pdb.get_alpha_carbons(file, pdb_id, chains_prediction, use_chains = True)
         rank += 1
 
     # there should only be one.

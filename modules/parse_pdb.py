@@ -38,6 +38,7 @@ def get_alpha_carbons(
     protein = pdb_parser.get_structure(id=pdb_id, file=filename)
     protein_atoms = protein.get_atoms()
     alpha_carbon_coords = []
+    chains = chains.upper()
     if (
         use_chains
     ):  # reading a solved structure file where only certain chains are wanted

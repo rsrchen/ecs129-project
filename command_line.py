@@ -44,7 +44,7 @@ def main():
     for x in sys.argv:
         strung_out += x + " "
     flags_entered = regex.findall(r"\s-\S\s", strung_out)
-    valid_flags = [" -a ", " -s ", " -p ", " -h ", " -c "]
+    valid_flags = [" -a ", " -s ", " -p ", " -h ", " -c ", " -C "]
 
     for flag in flags_entered:
         if flag not in valid_flags:
