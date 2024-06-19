@@ -122,14 +122,14 @@ def main():
     # -C is which chain or chains for the solved structure 
     if "-C" in sys.argv:
         try:
-            chains_solved = sys.argv[sys.argv.index("-c") + 1]
+            chains_solved = sys.argv[sys.argv.index("-C") + 1]
             if chains_solved in valid_flags:
-                print("Error: invalid argument provided for -c.")
+                print("Error: invalid argument provided for -C.")
                 return 0
         except IndexError:
-            print("No argument provided for -c; default chain A will be used.")
+            print("No argument provided for -C; default chain A will be used.")
     else:
-        print("No argument provided for -c; default chain A will be used.")
+        print("No argument provided for -C; default chain A will be used.")
     
     '''
     pt 3
@@ -172,14 +172,14 @@ def main():
             f"Error: there must be exactly 5 AlphaFold structure predictions per protein in the AlphaFold prediction directory."
         )
         return 0
-    return (pdb_id, colabfold_jobname_hash, chains, predictions_dir, solved_dir)
+    return (pdb_id, colabfold_jobname_hash, chains_prediction, chains_solved, predictions_dir, solved_dir)
 
 
-go: Literal[0] | tuple[str, str, str, str, str] = main()
+go: Literal[0] | tuple[str, str, str, str, str, str] = main()
 
 # if main goes off without a hitch
 if go:
-    main_program.main(go[0], go[1], go[2], go[3], go[4])
+    main_program.main(go[0], go[1], go[2], go[3], go[4], go[5])
     pass
 else:
     print("Program execution aborted.")

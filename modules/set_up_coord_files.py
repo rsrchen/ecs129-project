@@ -17,7 +17,8 @@ head to command_line for pt3
 def main(
     pdb_id: str,
     colabfold_hash: str,
-    chains: str,
+    chains_prediction: str,
+    chains_solved: str,
     path_to_alphafold_predictions: str | Path,
     path_to_solved_structures: str | Path,
 ):
@@ -33,7 +34,7 @@ def main(
     for file in alphafold_prediction_pdb_files:
         alpha_carbons_dictionary[
             pdb_id + "_rank" + str(rank)
-        ] = parse_pdb.get_alpha_carbons(file, pdb_id, chains, use_chains=False)
+        ] = parse_pdb.get_alpha_carbons(file, pdb_id, chains_prediction, use_chains=False)
         rank += 1
 
     # there should only be one.
@@ -41,7 +42,7 @@ def main(
         (p.glob(f"{path_to_solved_structures}/*{pdb_id}*.pdb"))
     )
     alpha_carbons_dictionary[pdb_id + "_goldstandard"] = parse_pdb.get_alpha_carbons(
-        solved_structure_pdb_file[0], pdb_id, chains, use_chains=True
+        solved_structure_pdb_file[0], pdb_id, chains_solved, use_chains=True
     )
     # this will probably only happen if the chain is incorrect.
     if len(alpha_carbons_dictionary[pdb_id + "_goldstandard"]) == 0:
