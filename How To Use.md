@@ -77,18 +77,14 @@ No argument provided for -c; default chain A will be used.
 
 ### Flags and Arguments
 - `-n`, the name of the file.
-- `-c`, which protein chains of the solved structure you want to measure the length of.
-- `-s`, whether or not you are measuring the length of a solved structure. omit -s if you are measuring the length of a prediction. include -s if you are measuring the length of a solved structure.
+- `-c`, which protein chains you want to measure the length of.
 
 ### Example usage
 I type this command into my shell:
-`python .\pdb_length_finder.py -n 1a2y.pdb -s -c ab`
+`python .\pdb_length_finder.py -n 1a2y.pdb -c ab`
 
 1. I use `-n` to indicate the name of the file. That's `1a2y.pdb`.
-2. I use `-s` to indicate that it is a solved structure.
-3. I use `-c` to indicate the chains I want to measure the length of, chains A and B.
-
-Note that `-c` will have no effect if you are looking at an AlphaFold prediction. The program will measure the length of the entire structure, including all chains.
+2. I use `-c` to indicate the chains I want to measure the length of, chains A and B.
 
 Here's the output. 
 
