@@ -36,7 +36,8 @@ def main():
     print("\nThe (New and Improved) ECS 129 Protein Structure Comparison Program. © 2022 rsrchen (github.com/rsrchen)\n")
     colabfold_jobname_hash = None
     pdb_id = None
-    chains = "A"
+    chains_prediction = "A"
+    chains_solved = "A"
     predictions_dir = "alphafold_predictions"
     solved_dir = "solved_structures"
     strung_out = " "
@@ -106,17 +107,38 @@ def main():
             print("Error: no argument provided for -h.")
             return 0
 
-    # -c is which chain. or chains. A chain, B chain, C, D, etc. entered like "A" or "ABC", alphabetically
+    # -c is which chain or chains for the prediction
     if "-c" in sys.argv:
         try:
-            chains = sys.argv[sys.argv.index("-c") + 1]
-            if chains in valid_flags:
+            chains_prediction = sys.argv[sys.argv.index("-c") + 1]
+            if chains_prediction in valid_flags:
                 print("Error: invalid argument provided for -c.")
                 return 0
         except IndexError:
             print("No argument provided for -c; default chain A will be used.")
     else:
         print("No argument provided for -c; default chain A will be used.")
+
+    # -C is which chain or chains for the solved structure 
+    if "-C" in sys.argv:
+        try:
+            chains_solved = sys.argv[sys.argv.index("-c") + 1]
+            if chains_solved in valid_flags:
+                print("Error: invalid argument provided for -c.")
+                return 0
+        except IndexError:
+            print("No argument provided for -c; default chain A will be used.")
+    else:
+        print("No argument provided for -c; default chain A will be used.")
+    
+    '''
+    pt 3
+
+    i need to add -C here. get the chains for solved structure.
+    also change -c to only be the chains for the prediction. 
+
+
+    '''
 
     if not pdb_id:
         print("Error: PDB ID cannot be empty. Use the -p flag to signify PDB ID.")

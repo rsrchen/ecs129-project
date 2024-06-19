@@ -5,6 +5,15 @@ import numpy as np
 from modules import parse_pdb
 
 
+'''
+pt 2
+i'll need to call get_alpha_carbons differently
+or actually, no i won't! i'll just need to supply it different values for chains depending on whether i'm using it to count the alpha carbons in a solved structure VS. a prediction.
+
+head to command_line for pt3
+
+'''
+
 def main(
     pdb_id: str,
     colabfold_hash: str,

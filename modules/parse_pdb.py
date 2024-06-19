@@ -41,6 +41,22 @@ def get_alpha_carbons(
     if (
         use_chains
     ):  # reading a solved structure file where only certain chains are wanted
+        # i need to change this.
+        # changed plan below.
+        # use chains if reading either a solved structure file or a structure prediction. 
+        '''
+        pt 1
+        i need to have the user specify chains for the solved structure AND for the prediction.
+        so like 
+        python .\command_line.py -p 1a3q -h 9a9da -c bc -C ab
+        -c will be chains of the prediction 
+        -C will be chains of the solved structure 
+
+        then this function of this module, get alpha carbons, gets to be the same. no changes here
+        i'll just need to alter how and when i call it. 
+
+        go to set_up_coord_files.py for pt 2
+        '''
         [
             alpha_carbon_coords.append(atom.coord)
             for atom in protein_atoms
