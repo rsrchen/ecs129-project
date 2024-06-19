@@ -130,15 +130,6 @@ def main():
             print("No argument provided for -C; default chain A will be used.")
     else:
         print("No argument provided for -C; default chain A will be used.")
-    
-    '''
-    pt 3
-
-    i need to add -C here. get the chains for solved structure.
-    also change -c to only be the chains for the prediction. 
-
-
-    '''
 
     if not pdb_id:
         print("Error: PDB ID cannot be empty. Use the -p flag to signify PDB ID.")
