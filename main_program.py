@@ -1,21 +1,15 @@
-from time import sleep
+# from time import sleep
 from modules import set_up_coord_files, shift_to_barycenters
 from modules import eigenvalues_of_vector_F
 from modules import calc_rmsd
 from modules import generate_plots
 from modules import set_up_coord_files
-from tqdm import tqdm
-from random import randint
-
-"""
-TODO:
-- make it runnable w/ command line arguments. 4 letter code of protein, directory containing your pdb files, directory containing your coordinate files, etc. 
-- make it accept 1 sequence. less hard-coded, more free. have it accept 1 sequence. or 4. or 12. not always 2 only. 
-"""
+# from tqdm import tqdm
+# from random import randint
 
 
 def main(
-    pdb_id: str, colabfold_hash: str, chains: str, predictions_dir: str, solved_dir: str
+    pdb_id: str, colabfold_hash: str, chains_prediction: str, chains_solved: str, predictions_dir: str, solved_dir: str
 ):
     """
     Determine the root-mean-square deviation between AlphaFold's protein structure predictions and
@@ -57,7 +51,7 @@ def main(
     # contains at least 5 entries. probably more. i need to figure out how to separate them based on sequence
     # i'll do that later
     alpha_carbon_coords_dictionary = set_up_coord_files.main(
-        pdb_id, colabfold_hash, chains, predictions_dir, solved_dir
+        pdb_id, colabfold_hash, chains_prediction, chains_solved, predictions_dir, solved_dir
     )
     if not alpha_carbon_coords_dictionary:
         print(
@@ -91,5 +85,5 @@ def main(
     for name, rmsd in rmsd_catalog.items():
         print(name, "RMSD:", rmsd)
 
-    generate_plots.generate(rmsd_catalog, pdb_id, chains)
+    generate_plots.generate(rmsd_catalog, pdb_id, chains_prediction, chains_solved)
     return 1

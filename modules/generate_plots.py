@@ -5,7 +5,12 @@ import matplotlib.pyplot as plt
 from textwrap import wrap
 
 
-def generate(dictionary_of_RMSDs: dict[str, float], pdb_id: str, chains: str):
+def generate(
+    dictionary_of_RMSDs: dict[str, float],
+    pdb_id: str,
+    chains_prediction: str,
+    chains_solved: str,
+):
     """
     Given a dictionary of RMSDs comparing AlphaFold predictions to
     experimentally-determined structures, generate 1 color-coded heatmap
@@ -38,6 +43,10 @@ def generate(dictionary_of_RMSDs: dict[str, float], pdb_id: str, chains: str):
     structure_names_list.append(structure_names_list[0])
     structure_names_list.remove(structure_names_list[0])
 
+    # capitalize chains first
+    chains_prediction = chains_prediction.upper()
+    chains_solved = chains_solved.upper()
+
     # here's where the plotting begins
     fig, ax = plt.subplots(ncols=2, figsize=(14, 9))
     plt.tight_layout(pad=10)
@@ -45,7 +54,7 @@ def generate(dictionary_of_RMSDs: dict[str, float], pdb_id: str, chains: str):
     ax[0].set_title(
         "\n".join(
             wrap(
-                f"Comparison Heatmap of Root-Mean-Square Deviation Between All AlphaFold Structure Predictions and the Solved Structure of {pdb_id.upper()} Chain(s) {chains}",
+                f"Comparison Heatmap of Root-Mean-Square Deviation Between Chain(s) {chains_prediction} of AlphaFold's Predictions and the Solved Structure of {pdb_id.upper()} Chain(s) {chains_solved}",
                 70,
             )
         )
@@ -67,20 +76,20 @@ def generate(dictionary_of_RMSDs: dict[str, float], pdb_id: str, chains: str):
     ax[1].set_title(
         "\n".join(
             wrap(
-                f"Root-Mean-Square Deviations Between Each Individual AlphaFold Prediction and the Solved Structure Only for {pdb_id.upper()} Chain(s) {chains}",
+                f"Root-Mean-Square Deviations Between Chain(s) {chains_prediction} of Each Individual AlphaFold Prediction and the Solved Structure for {pdb_id.upper()} Chain(s) {chains_solved}",
                 70,
             )
         )
     )
     ax[1].set_xticks(range(array_side_size - 1), labels=structure_names_list[:-1])
-    ax[1].set_yticks(
-        np.arange(
-            int(max(rmsd_array_goldstandard) - (max(rmsd_array_goldstandard) * 0.2)),
-            (int(max(rmsd_array_goldstandard + (max(rmsd_array_goldstandard) * 0.2)))),
-            0.1 * max(rmsd_array_goldstandard),
-        )
-    )
-    ax[1].set_yscale("log")
+    # ax[1].set_yticks(
+    #     np.arange(
+    #         int(max(rmsd_array_goldstandard) - (max(rmsd_array_goldstandard) * 0.2)),
+    #         (int(max(rmsd_array_goldstandard + (max(rmsd_array_goldstandard) * 0.2)))),
+    #         0.1 * max(rmsd_array_goldstandard),
+    #     )
+    # )
+    ax[1].set_yscale("linear")
     ax[1].set_xlabel("Name and Rank of Structure Prediction", labelpad=20)
     ax[1].set_ylabel("Root-Mean-Square Deviation", labelpad=20)
 
