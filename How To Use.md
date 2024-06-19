@@ -23,7 +23,7 @@ The second word is the entry point of the program, a python file called `command
 
 Then, some flags and arguments. 
 1. `-p 1grq` tells the program that the PDB ID of the solved protein structure is 1GRQ. This is the PDB file for the solved structure of [CHLORAMPHENICOL PHOSPHOTRANSFERASE IN COMPLEX WITH P-AMINO-CHLORAMPHENICOL FROM STREPTOMYCES VENEZUELAE](https://www.rcsb.org/structure/1GRQ).
-2. `-h b2b87` tells the program that the ColabFold hash is b2b87. When I used ColabFold to predict how this protein would fold, it gave me a jobname and attached a hash value to it. All the PDB files of AlphaFold's structure predictions now have this hash value, b2b87, in their filenames. The program will use this hash value to discern which structure predictions are of the same protein. It's important. 
+2. `-h b2b87` tells the program that the ColabFold hash is b2b87. When I used ColabFold to predict how this protein would fold, it gave me a jobname and attached a hash value to it. All the PDB files of AlphaFold's structure predictions now have this hash value, b2b87, in their filenames. The program will use this hash value to discern which structure predictions are of the same protein. 
 3. You'll notice there's no `-s`, `-a`, `-c`, or `-C`. The program will use the default values for the solved structures directory, AlphaFold predictions directory, chains of the predicted structure to examine, and chains of the solved structure to examine.
 
 The program will run and print some comparison stats to the shell, as well as display a heatmap and bar graph visualizing the data.
@@ -79,20 +79,19 @@ No argument provided for -C; default chain A will be used.
 
 One more example:
 
-`python .\command_line.py -p 1czd -h df4c0 -c b -C a`
+`python .\command_line.py -p 1czd -h df4c0 -c b -C a -a new-directory/some-subdirectory -s new-directory`
 
 A few things are different from the previous example.
 1. The PDB ID and hash values are different; I'm looking at [CRYSTAL STRUCTURE OF THE PROCESSIVITY CLAMP GP45 FROM BACTERIOPHAGE T4](https://www.rcsb.org/structure/1CZD) this time.
 2. `-c b` is used to specify that the program should look at chain B of the predicted structure.
 3. `-C a` is used to specify that the program should look at chain A of the solved structure. 
+4. `-a` and `-s` are used to specify that the program should search in the `./new-directory/some-subdirectory` and `./new-directory` paths to find the predicted structure and solved structure files, respectively.
 
 Here's the output.
 
 ```
 The (New and Improved) ECS 129 Protein Structure Comparison Program. © 2022-20XX rsrchen (github.com/rsrchen)
 
-No argument provided for -a; default predicted structures directory (./structures/alphafold_predictions) will be used.
-No argument provided for -s; default solved structures directory (./structures/solved_structures) will be used.
 1czd_rank1 and 1czd_rank1 RMSD: 0.0041
 1czd_rank1 and 1czd_rank2 RMSD: 0.1409
 1czd_rank1 and 1czd_rank3 RMSD: 0.1101
