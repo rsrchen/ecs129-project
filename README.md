@@ -10,7 +10,7 @@
   - [the main program (`command_line.py`)](#the-main-program-command_linepy)
     - [flags and arguments](#flags-and-arguments)
     - [example usage](#example-usage)
-  - [pdb length finder](#pdb-length-finder)
+  - [pdb length finder (`pdb_length_finder.py`)](#pdb-length-finder-pdb_length_finderpy)
     - [flags and arguments](#flags-and-arguments-1)
     - [example usage](#example-usage-1)
 
@@ -171,7 +171,7 @@ The (New and Improved) ECS 129 Protein Structure Comparison Program. © 2022-20X
 
 ![output plots](/info_md_assets/2.png)
 
-## pdb length finder
+## pdb length finder (`pdb_length_finder.py`)
 
 This is an additional utility you can use to find the length of a particular protein sequence.
 
