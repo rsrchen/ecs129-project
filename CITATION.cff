@@ -8,7 +8,7 @@ type: software
 authors:
   - email: rsrchen@ucdavis.edu
     given-names: Ray
-    family-names: ' Chen'
+    family-names: Chen
   - email: dancard@ucdavis.edu
     given-names: Daniel
     family-names: Cardenas
@@ -22,3 +22,5 @@ keywords:
   - sequence
   - comparison
   - bioinformatics
+  - alphafold
+  - quaternion
